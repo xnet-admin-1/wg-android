@@ -1,5 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.backend
 
+import com.zaneschepke.wireguardautotunnel.core.tether.TetherRoutes
 import com.zaneschepke.wireguardautotunnel.data.model.AppMode
 import com.zaneschepke.wireguardautotunnel.data.model.DnsProtocol
 import com.zaneschepke.wireguardautotunnel.domain.events.InvalidConfig
@@ -14,6 +15,8 @@ import com.zaneschepke.wireguardautotunnel.domain.repository.TunnelRepository
 import java.util.Optional
 import kotlinx.coroutines.flow.firstOrNull
 import org.amnezia.awg.config.Config
+import org.amnezia.awg.config.InetNetwork
+import org.amnezia.awg.config.Peer
 import org.amnezia.awg.config.proxy.HttpProxy
 import org.amnezia.awg.config.proxy.Socks5Proxy
 
@@ -81,9 +84,25 @@ class RunConfigHelper(
                 emptyList()
             }
         val amConfig = prep.effectiveConfig.toAmConfig()
+        val peers = if (prep.generalSettings.isTetherSharingEnabled) {
+            val tetherNets = TetherRoutes.TETHER_SUBNETS.map { (addr, prefix) ->
+                InetNetwork.parse("$addr/$prefix")
+            }
+            amConfig.peers.map { peer ->
+                Peer.Builder().apply {
+                    setPublicKey(peer.publicKey)
+                    peer.preSharedKey.ifPresent { setPreSharedKey(it) }
+                    peer.endpoint.ifPresent { setEndpoint(it) }
+                    peer.persistentKeepalive.ifPresent { setPersistentKeepalive(it) }
+                    addAllowedIps(peer.allowedIps + tetherNets)
+                }.build()
+            }
+        } else {
+            amConfig.peers
+        }
         return Config.Builder()
             .setInterface(amConfig.`interface`)
-            .addPeers(amConfig.peers)
+            .addPeers(peers)
             .addProxies(proxies)
             .setDnsSettings(
                 org.amnezia.awg.config.DnsSettings(
