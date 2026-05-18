@@ -496,7 +496,7 @@ class MainActivity : AppCompatActivity() {
                                                     TetherSettingsScreen(
                                                         isTetherEnabled = uiState.isTetherSharingEnabled,
                                                         onTetherToggle = { viewModel.toggleTetherSharing(it) },
-                                                        protectSocket = { },
+                                                        protectSocket = { com.zaneschepke.wireguardautotunnel.core.tether.VpnProtect.protect(it) },
                                                     )
                                                 }
                                                 entry<Route.Appearance> { AppearanceScreen() }
