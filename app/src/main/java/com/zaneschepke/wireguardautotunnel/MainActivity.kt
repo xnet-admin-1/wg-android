@@ -105,6 +105,7 @@ import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.TunnelsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.config.ConfigScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.settings.TunnelSettingsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.sort.SortScreen
+import com.zaneschepke.wireguardautotunnel.ui.screens.settings.tether.TetherSettingsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.splittunnel.SplitTunnelScreen
 import com.zaneschepke.wireguardautotunnel.ui.theme.AlertRed
 import com.zaneschepke.wireguardautotunnel.ui.theme.OffWhite
@@ -491,6 +492,13 @@ class MainActivity : AppCompatActivity() {
                                                     LockdownSettingsScreen()
                                                 }
                                                 entry<Route.ProxySettings> { ProxySettingsScreen() }
+                                                entry<Route.Tether> {
+                                                    TetherSettingsScreen(
+                                                        isTetherEnabled = uiState.isTetherSharingEnabled,
+                                                        onTetherToggle = { viewModel.toggleTetherSharing(it) },
+                                                        protectSocket = { },
+                                                    )
+                                                }
                                                 entry<Route.Appearance> { AppearanceScreen() }
                                                 entry<Route.Language> { LanguageScreen() }
                                                 entry<Route.Display> { DisplayScreen() }

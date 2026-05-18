@@ -298,6 +298,11 @@ fun SettingsScreen(
                     }
                 },
             )
+            SurfaceRow(
+                leading = { Icon(Icons.Outlined.Share, contentDescription = null) },
+                title = "Tether VPN Sharing",
+                onClick = { navController.push(Route.Tether) },
+            )
         }
     }
 }
