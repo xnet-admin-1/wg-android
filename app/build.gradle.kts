@@ -137,6 +137,7 @@ android {
         allowedLicenseUrls().forEach { allowUrl(it) }
         // foss, but missing license
         ignoreDependencies("com.github.T8RIN.QuickieExtended")
+        ignoreDependencies("com.github.termux.termux-app")
     }
 
     android.applicationVariants.all {

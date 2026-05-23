@@ -77,6 +77,8 @@ sealed class Route : NavKey {
     @Keep @Serializable data object PingTarget : Route()
 
     @Keep @Serializable data object Tether : Route()
+
+    @Keep @Serializable data object Terminal : Route()
 }
 
 @Serializable
@@ -132,6 +134,7 @@ enum class Tab(
                 Route.PingTarget,
                 is Route.ConfigGlobal,
                 Route.Tether,
+                Route.Terminal,
                 Route.Logs -> SETTINGS
                 is Route.Support,
                 Route.License,

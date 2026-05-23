@@ -1,0 +1,141 @@
+package com.zaneschepke.wireguardautotunnel.ui.screens.settings.terminal
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Terminal
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import com.zaneschepke.wireguardautotunnel.core.terminal.ProotBootstrap
+import com.zaneschepke.wireguardautotunnel.core.terminal.ProotExecutor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+@Composable
+fun TerminalSettingsScreen(onOpenTerminal: () -> Unit) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var isInstalled by remember { mutableStateOf(ProotBootstrap.isInstalled(ctx)) }
+    var isWorking by remember { mutableStateOf(false) }
+    var statusLog by remember { mutableStateOf("") }
+    var pairingCode by remember { mutableStateOf("") }
+    var pairingPort by remember { mutableStateOf("") }
+    var pairResult by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        // Alpine Environment Card
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Icon(Icons.Filled.Terminal, contentDescription = null)
+                    Text("Alpine Terminal", style = MaterialTheme.typography.titleMedium)
+                }
+                Text(
+                    if (isInstalled) "Environment ready. Includes adb, shell tools." else "Not installed. Tap Setup to download Alpine Linux (~15MB).",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(
+                        onClick = {
+                            isWorking = true; statusLog = ""
+                            scope.launch(Dispatchers.IO) {
+                                val ok = ProotBootstrap.setup(ctx) { line -> statusLog = line }
+                                isInstalled = ok; isWorking = false
+                            }
+                        },
+                        enabled = !isWorking && !isInstalled,
+                    ) { Text("Setup") }
+                    OutlinedButton(
+                        onClick = {
+                            isWorking = true; statusLog = ""
+                            scope.launch(Dispatchers.IO) {
+                                val ok = ProotBootstrap.rebuild(ctx) { line -> statusLog = line }
+                                isInstalled = ok; isWorking = false
+                            }
+                        },
+                        enabled = !isWorking,
+                    ) { Text("Rebuild") }
+                    if (isInstalled) {
+                        FilledTonalButton(onClick = onOpenTerminal) { Text("Open Terminal") }
+                    }
+                }
+                if (isWorking) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                if (statusLog.isNotBlank()) Text(statusLog, style = MaterialTheme.typography.bodySmall)
+            }
+        }
+
+        // ADB Self-Pair Card
+        if (isInstalled) {
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("ADB Self-Pair", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "Pair with on-device ADB to enable persistent remote access. Open Wireless Debugging → Pair device, then enter the code and port below.",
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedTextField(
+                            value = pairingPort, onValueChange = { pairingPort = it.filter { c -> c.isDigit() } },
+                            label = { Text("Port") }, modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true,
+                        )
+                        OutlinedTextField(
+                            value = pairingCode, onValueChange = { pairingCode = it },
+                            label = { Text("Pairing Code") }, modifier = Modifier.weight(1.5f),
+                            singleLine = true,
+                        )
+                    }
+                    Button(
+                        onClick = {
+                            isWorking = true; pairResult = "Pairing..."
+                            scope.launch(Dispatchers.IO) {
+                                pairResult = pairAndPersist(ctx, pairingPort, pairingCode)
+                                isWorking = false
+                            }
+                        },
+                        enabled = !isWorking && pairingCode.isNotBlank() && pairingPort.isNotBlank(),
+                    ) { Text("Pair & Persist ADB") }
+                    if (pairResult.isNotBlank()) {
+                        Text(pairResult, style = MaterialTheme.typography.bodySmall,
+                            color = if (pairResult.contains("Success")) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun pairAndPersist(ctx: android.content.Context, port: String, code: String): String {
+    // Step 1: Pair
+    val pairOut = ProotExecutor.exec(ctx, "adb pair 127.0.0.1:$port $code", timeoutMs = 30_000)
+    if (!pairOut.contains("Successfully paired", ignoreCase = true)) {
+        return "Pair failed: $pairOut"
+    }
+
+    // Step 2: Find the connection port (wireless debugging port)
+    // After pairing, we need to connect. The connection port is different from pairing port.
+    // Try common discovery: scan for adbd listening port
+    val connectOut = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:5555 2>&1 || adb connect \$(getprop service.adb.tcp.port 2>/dev/null || echo 5555) 2>&1", timeoutMs = 15_000)
+
+    // Step 3: Force adbd to persistent TCP mode
+    val persistOut = ProotExecutor.exec(ctx,
+        "adb shell setprop service.adb.tcp.port 5555 && adb shell stop adbd && adb shell start adbd",
+        timeoutMs = 15_000,
+    )
+
+    return if (persistOut.contains("error", ignoreCase = true)) {
+        "Paired but persist failed: $persistOut"
+    } else {
+        "Success! ADB now listens on port 5555 on all interfaces."
+    }
+}

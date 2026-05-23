@@ -305,6 +305,11 @@ fun SettingsScreen(
                 title = "Tether VPN Sharing",
                 onClick = { navController.push(Route.Tether) },
             )
+            SurfaceRow(
+                leading = { Icon(Icons.Outlined.Share, contentDescription = null) },
+                title = "Terminal & ADB",
+                onClick = { navController.push(Route.Terminal) },
+            )
         }
     }
 }

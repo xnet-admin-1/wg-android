@@ -499,6 +499,11 @@ class MainActivity : AppCompatActivity() {
                                                         protectSocket = { com.zaneschepke.wireguardautotunnel.core.tether.VpnProtect.protect(it) },
                                                     )
                                                 }
+                                                entry<Route.Terminal> {
+                                                    com.zaneschepke.wireguardautotunnel.ui.screens.settings.terminal.TerminalSettingsScreen(
+                                                        onOpenTerminal = { navController.push(Route.Terminal) },
+                                                    )
+                                                }
                                                 entry<Route.Appearance> { AppearanceScreen() }
                                                 entry<Route.Language> { LanguageScreen() }
                                                 entry<Route.Display> { DisplayScreen() }
