@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.filled.AppShortcut
+import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.ContentCopy
@@ -193,6 +194,20 @@ fun AndroidIntegrationsScreen(viewModel: SettingsViewModel = koinViewModel()) {
                     )
                 }
             }
+            SurfaceRow(
+                leading = { Icon(Icons.Filled.Adb, contentDescription = null) },
+                trailing = {
+                    ThemedSwitch(
+                        checked = settingsState.settings.isAdbForwardingEnabled,
+                        onClick = { viewModel.setAdbForwardingEnabled(it) },
+                    )
+                },
+                title = stringResource(R.string.adb_over_vpn),
+                onClick = {
+                    viewModel.setAdbForwardingEnabled(!settingsState.settings.isAdbForwardingEnabled)
+                },
+                description = { DescriptionText(stringResource(R.string.adb_over_vpn_description)) },
+            )
         }
     }
 }

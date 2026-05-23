@@ -19,4 +19,5 @@ data class GeneralSettings(
     val isKillSwitchMetered: Boolean = true,
     val alreadyDonated: Boolean = false,
     val isTetherSharingEnabled: Boolean = false,
+    val isAdbForwardingEnabled: Boolean = false,
 )

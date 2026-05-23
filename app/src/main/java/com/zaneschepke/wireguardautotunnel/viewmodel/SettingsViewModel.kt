@@ -98,4 +98,8 @@ class SettingsViewModel(
     fun setAlreadyDonated(to: Boolean) = intent {
         settingsRepository.upsert(state.settings.copy(alreadyDonated = to))
     }
+
+    fun setAdbForwardingEnabled(to: Boolean) = intent {
+        settingsRepository.upsert(state.settings.copy(isAdbForwardingEnabled = to))
+    }
 }

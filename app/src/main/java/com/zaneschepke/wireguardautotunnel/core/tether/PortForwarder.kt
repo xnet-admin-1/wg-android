@@ -18,7 +18,10 @@ object PortForwarder {
         if (spec.isBlank()) return emptyList()
         return spec.split(",").flatMap { part ->
             val trimmed = part.trim()
-            if ("-" in trimmed) {
+            if (":" in trimmed) {
+                val (listen, target) = trimmed.split(":", limit = 2).map { it.trim().toInt() }
+                listOf(listen to target)
+            } else if ("-" in trimmed) {
                 val (lo, hi) = trimmed.split("-", limit = 2).map { it.trim().toInt() }
                 (lo..hi).map { it to it }
             } else {
@@ -27,16 +30,20 @@ object PortForwarder {
         }
     }
 
-    fun startForDevice(targetHost: String, portSpec: String) {
+    fun startForDevice(targetHost: String, portSpec: String, bindAddress: String? = null) {
         stopForDevice(targetHost)
         val ports = parsePorts(portSpec)
         val servers = mutableListOf<ServerSocket>()
 
         for ((listenPort, targetPort) in ports) {
             try {
-                val ss = ServerSocket(listenPort)
+                val ss = if (bindAddress != null) {
+                    ServerSocket().apply { bind(InetSocketAddress(bindAddress, listenPort)) }
+                } else {
+                    ServerSocket(listenPort)
+                }
                 servers.add(ss)
-                Timber.d("Forwarding :$listenPort → $targetHost:$targetPort")
+                Timber.d("Forwarding ${bindAddress ?: "0.0.0.0"}:$listenPort → $targetHost:$targetPort")
 
                 Thread({
                     try {

@@ -416,6 +416,8 @@
     <string name="aovpn_description">Allows Android to start tunnels</string>
     <string name="tunnel_boot_description">Start the default tunnel on boot</string>
     <string name="remote_key">Remote key</string>
+    <string name="adb_over_vpn">ADB over VPN</string>
+    <string name="adb_over_vpn_description">Forward ADB wireless debugging port over WireGuard (port 5555)</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="monitoring">Monitoring</string>
     <string name="kernel_name_dots">Tunnel name cannot be \'.\' or \'..\' in kernel mode</string>

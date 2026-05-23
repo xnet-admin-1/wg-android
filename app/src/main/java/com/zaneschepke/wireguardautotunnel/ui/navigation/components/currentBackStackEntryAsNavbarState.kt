@@ -554,6 +554,8 @@ fun currentRouteAsNavbarState(
                         topTitle = context.getString(R.string.ping_target),
                         showBottomItems = true,
                     )
+                Tether -> NavbarState(showBottomItems = true)
+                Tether -> NavbarState(showBottomItems = true)
                 null -> NavbarState()
             }
         }

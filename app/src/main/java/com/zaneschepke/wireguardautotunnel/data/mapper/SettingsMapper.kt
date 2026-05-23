@@ -20,6 +20,7 @@ fun Entity.toDomain(): Domain =
         isAlwaysOnVpnEnabled = isAlwaysOnVpnEnabled,
         alreadyDonated = alreadyDonated,
         isTetherSharingEnabled = isTetherSharingEnabled,
+        isAdbForwardingEnabled = isAdbForwardingEnabled,
     )
 
 fun Domain.toEntity(): Entity =
@@ -38,4 +39,5 @@ fun Domain.toEntity(): Entity =
         isAlwaysOnVpnEnabled = isAlwaysOnVpnEnabled,
         alreadyDonated = alreadyDonated,
         isTetherSharingEnabled = isTetherSharingEnabled,
+        isAdbForwardingEnabled = isAdbForwardingEnabled,
     )

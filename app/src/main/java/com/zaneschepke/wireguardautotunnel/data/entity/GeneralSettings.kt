@@ -29,4 +29,6 @@ data class GeneralSettings(
     @ColumnInfo(name = "already_donated", defaultValue = "0") val alreadyDonated: Boolean = false,
     @ColumnInfo(name = "is_tether_sharing_enabled", defaultValue = "0")
     val isTetherSharingEnabled: Boolean = false,
+    @ColumnInfo(name = "is_adb_forwarding_enabled", defaultValue = "0")
+    val isAdbForwardingEnabled: Boolean = false,
 )

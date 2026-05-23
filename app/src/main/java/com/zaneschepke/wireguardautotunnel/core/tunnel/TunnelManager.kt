@@ -5,6 +5,7 @@ import com.zaneschepke.logcatter.LogReader
 import com.zaneschepke.networkmonitor.NetworkMonitor
 import com.zaneschepke.wireguardautotunnel.core.service.ServiceManager
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.TunnelBackend
+import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.AdbForwardingHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.DynamicDnsHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelActiveStatePersister
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelMonitorHandler
@@ -205,6 +206,14 @@ class TunnelManager(
             updateTunnelStatus = { id, status, stats, pings, logHealth ->
                 updateTunnelStatus(id, status, stats, pings, logHealth)
             },
+            applicationScope = applicationScope,
+            ioDispatcher = ioDispatcher,
+        )
+
+    private val adbForwardingHandler =
+        AdbForwardingHandler(
+            activeTunnels = activeTunnels,
+            settingsRepository = settingsRepository,
             applicationScope = applicationScope,
             ioDispatcher = ioDispatcher,
         )
