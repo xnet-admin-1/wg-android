@@ -122,20 +122,18 @@ private fun pairAndPersist(ctx: android.content.Context, port: String, code: Str
         return "Pair failed: $pairOut"
     }
 
-    // Step 2: Find the connection port (wireless debugging port)
-    // After pairing, we need to connect. The connection port is different from pairing port.
-    // Try common discovery: scan for adbd listening port
-    val connectOut = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:5555 2>&1 || adb connect \$(getprop service.adb.tcp.port 2>/dev/null || echo 5555) 2>&1", timeoutMs = 15_000)
+    // Step 2: Connect to adbd
+    val connectOut = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:5555", timeoutMs = 15_000)
+    if (!connectOut.contains("connected", ignoreCase = true)) {
+        return "Paired but connect failed: $connectOut"
+    }
 
-    // Step 3: Force adbd to persistent TCP mode
-    val persistOut = ProotExecutor.exec(ctx,
-        "adb shell setprop service.adb.tcp.port 5555 && adb shell stop adbd && adb shell start adbd",
-        timeoutMs = 15_000,
-    )
+    // Step 3: Switch adbd to persistent TCP mode on port 5555
+    val tcpipOut = ProotExecutor.exec(ctx, "adb tcpip 5555", timeoutMs = 15_000)
 
-    return if (persistOut.contains("error", ignoreCase = true)) {
-        "Paired but persist failed: $persistOut"
+    return if (tcpipOut.contains("restarting in TCP mode", ignoreCase = true)) {
+        "Success! ADB persisted on port 5555 (survives Wi-Fi disconnect)."
     } else {
-        "Success! ADB now listens on port 5555 on all interfaces."
+        "Paired + connected, but tcpip failed: $tcpipOut"
     }
 }
