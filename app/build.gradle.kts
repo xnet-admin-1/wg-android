@@ -69,6 +69,7 @@ android {
         packaging.jniLibs.keepDebugSymbols.addAll(
             listOf("libwg-go.so", "libwg-quick.so", "libwg.so")
         )
+        packaging.jniLibs.useLegacyPackaging = true
 
         release {
             isDebuggable = false
