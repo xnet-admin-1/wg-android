@@ -82,16 +82,35 @@ WG Tunnel is an alternative Android client for WireGuard and AmneziaWG, inspired
 - **Monitoring Tools**: Advanced tunnel monitoring features for tunnel performance monitoring.
 - **Android TV Support**: Android TV support for secure streaming and browsing.
 - **Advanced DNS**: DNS over HTTPS support for tunnel endpoint resolutions.
+- **ADB over VPN**: Forward ADB wireless debugging over WireGuard on a stable port (5555) for remote device access.
+- **Tether VPN Sharing**: Share your VPN connection with tethered devices, with per-device port forwarding.
 
 ## Building
 
 ```sh
-git clone https://github.com/wgtunnel/wgtunnel
-cd wgtunnel
+git clone https://github.com/xnet-admin-1/wg-android
+cd wg-android
 ```
 
 ```sh
 ./gradlew assembleDebug
+```
+
+## ADB over VPN
+
+Access your device's full ADB remotely through the WireGuard tunnel — no USB, no LAN required.
+
+**Setup:**
+1. Enable Developer Options → Wireless Debugging on the device
+2. In the app: Settings → Android Integrations → toggle **ADB over VPN**
+3. From your PC: `adb connect <device-wg-ip>:5555`
+
+The app automatically discovers adbd's random port and forwards it to a stable port 5555 on the WireGuard interface. Port changes are tracked every 15 seconds.
+
+**First-time pairing** must be done while the pairing port is reachable (same network or over WireGuard):
+```sh
+adb pair <device-wg-ip>:<pairing-port> <code>
+adb connect <device-wg-ip>:5555
 ```
 
 ## Translation
