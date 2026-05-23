@@ -501,8 +501,11 @@ class MainActivity : AppCompatActivity() {
                                                 }
                                                 entry<Route.Terminal> {
                                                     com.zaneschepke.wireguardautotunnel.ui.screens.settings.terminal.TerminalSettingsScreen(
-                                                        onOpenTerminal = { navController.push(Route.Terminal) },
+                                                        onOpenTerminal = { navController.push(Route.TerminalFull) },
                                                     )
+                                                }
+                                                entry<Route.TerminalFull> {
+                                                    com.zaneschepke.wireguardautotunnel.ui.screens.settings.terminal.TerminalScreen()
                                                 }
                                                 entry<Route.Appearance> { AppearanceScreen() }
                                                 entry<Route.Language> { LanguageScreen() }

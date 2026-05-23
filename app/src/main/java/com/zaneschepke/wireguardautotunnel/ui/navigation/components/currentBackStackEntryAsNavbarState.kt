@@ -556,6 +556,7 @@ fun currentRouteAsNavbarState(
                     )
                 Tether -> NavbarState(showBottomItems = true)
                 Terminal -> NavbarState(showBottomItems = true)
+                TerminalFull -> NavbarState(showBottomItems = false)
                 null -> NavbarState()
             }
         }

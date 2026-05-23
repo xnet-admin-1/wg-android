@@ -79,6 +79,8 @@ sealed class Route : NavKey {
     @Keep @Serializable data object Tether : Route()
 
     @Keep @Serializable data object Terminal : Route()
+
+    @Keep @Serializable data object TerminalFull : Route()
 }
 
 @Serializable
@@ -135,6 +137,7 @@ enum class Tab(
                 is Route.ConfigGlobal,
                 Route.Tether,
                 Route.Terminal,
+                Route.TerminalFull,
                 Route.Logs -> SETTINGS
                 is Route.Support,
                 Route.License,
