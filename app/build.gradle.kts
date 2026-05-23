@@ -173,6 +173,9 @@ dependencies {
     implementation(project(":logcatter"))
     implementation(project(":networkmonitor"))
 
+    // Terminal emulator (proot shell)
+    implementation("com.github.termux.termux-app:terminal-emulator:v0.118.0")
+
     // Core foundations
     implementation(libs.bundles.androidx.core.full)
     implementation(libs.bundles.androidx.lifecycle.core)

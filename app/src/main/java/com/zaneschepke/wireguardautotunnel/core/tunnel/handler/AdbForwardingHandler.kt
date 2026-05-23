@@ -1,6 +1,8 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.handler
 
+import android.app.Application
 import com.zaneschepke.wireguardautotunnel.core.tether.AdbForwarder
+import com.zaneschepke.wireguardautotunnel.core.tether.HotspotManager
 import com.zaneschepke.wireguardautotunnel.domain.repository.GeneralSettingRepository
 import com.zaneschepke.wireguardautotunnel.domain.state.TunnelState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,6 +15,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 class AdbForwardingHandler(
@@ -20,7 +24,9 @@ class AdbForwardingHandler(
     private val settingsRepository: GeneralSettingRepository,
     applicationScope: CoroutineScope,
     ioDispatcher: CoroutineDispatcher,
-) {
+) : KoinComponent {
+
+    private val context: Application by inject()
     private var watchJob: Job? = null
 
     init {
@@ -33,6 +39,7 @@ class AdbForwardingHandler(
             }.distinctUntilChanged().collect { shouldRun ->
                 if (shouldRun) {
                     Timber.i("ADB forwarding: starting port watcher")
+                    HotspotManager.start(context)
                     watchJob?.cancel()
                     watchJob = launch {
                         while (isActive) {
@@ -45,6 +52,7 @@ class AdbForwardingHandler(
                     watchJob?.cancel()
                     watchJob = null
                     AdbForwarder.stop()
+                    HotspotManager.stop()
                 }
             }
         }

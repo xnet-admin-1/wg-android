@@ -4,6 +4,8 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
 
     <!--for split tunneling-->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
