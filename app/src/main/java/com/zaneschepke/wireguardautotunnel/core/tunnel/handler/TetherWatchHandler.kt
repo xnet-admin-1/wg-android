@@ -1,5 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.handler
 
+import android.util.Log
 import com.zaneschepke.wireguardautotunnel.domain.repository.GeneralSettingRepository
 import com.zaneschepke.wireguardautotunnel.domain.state.TunnelState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,22 +28,22 @@ class TetherWatchHandler(
     private var lastInterfaces = emptySet<String>()
 
     init {
-        Timber.d("TetherWatchHandler: init, backend=${backend::class.simpleName}")
+        Log.d("TetherWatch", "init backend=${backend::class.simpleName}")
         applicationScope.launch(ioDispatcher) {
             combine(
                 activeTunnels.map { it.isNotEmpty() }.distinctUntilChanged(),
                 settingsRepository.flow.map { it.isTetherSharingEnabled }.distinctUntilChanged(),
             ) { tunnelActive, tetherEnabled ->
-                Timber.d("TetherWatchHandler: tunnelActive=$tunnelActive tetherEnabled=$tetherEnabled")
+                Log.d("TetherWatch", "tunnelActive=$tunnelActive tetherEnabled=$tetherEnabled")
                 tunnelActive && tetherEnabled
             }.distinctUntilChanged().collect { shouldWatch ->
-                Timber.d("TetherWatchHandler: shouldWatch=$shouldWatch")
+                Log.d("TetherWatch", "shouldWatch=$shouldWatch")
                 if (shouldWatch) {
                     while (isActive) {
                         val current = detectTetherInterfaces()
                         if (current != lastInterfaces) {
                             lastInterfaces = current
-                            Timber.i("Tether interfaces changed: $current")
+                            Log.i("TetherWatch", "interfaces changed: $current")
                             (backend as? GoBackend)?.refreshTetherNAT()
                         }
                         delay(3000)

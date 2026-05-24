@@ -1,13 +1,13 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel
 
 import android.os.PowerManager
+import android.util.Log
 import com.zaneschepke.logcatter.LogReader
 import com.zaneschepke.networkmonitor.NetworkMonitor
 import com.zaneschepke.wireguardautotunnel.core.service.ServiceManager
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.TunnelBackend
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.AdbForwardingHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.DynamicDnsHandler
-import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TetherWatchHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelActiveStatePersister
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelMonitorHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelServiceHandler
@@ -43,12 +43,16 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.supervisorScope
@@ -220,16 +224,32 @@ class TunnelManager(
             ioDispatcher = ioDispatcher,
         )
 
-    private val tetherWatchHandler =
-        TetherWatchHandler(
-            activeTunnels = activeTunnels,
-            settingsRepository = settingsRepository,
-            backend = userspaceAmBackend,
-            applicationScope = applicationScope,
-            ioDispatcher = ioDispatcher,
-        )
-
     init {
+        Log.d("TetherWatch", "TunnelManager init - starting tether watch")
+        applicationScope.launch(ioDispatcher) {
+            combine(
+                activeTunnels.map { it.isNotEmpty() }.distinctUntilChanged(),
+                settingsRepository.flow.map { it.isTetherSharingEnabled }.distinctUntilChanged(),
+            ) { tunnelActive, tetherEnabled ->
+                Log.d("TetherWatch", "tunnelActive=$tunnelActive tetherEnabled=$tetherEnabled")
+                tunnelActive && tetherEnabled
+            }.distinctUntilChanged().collect { shouldWatch ->
+                Log.d("TetherWatch", "shouldWatch=$shouldWatch")
+                if (shouldWatch) {
+                    var lastIfaces = emptySet<String>()
+                    while (isActive) {
+                        val current = detectTetherInterfaces()
+                        if (current != lastIfaces) {
+                            lastIfaces = current
+                            Log.i("TetherWatch", "interfaces: $current")
+                            (userspaceAmBackend as? org.amnezia.awg.backend.GoBackend)?.refreshTetherNAT()
+                        }
+                        delay(3000)
+                    }
+                }
+            }
+        }
+
         applicationScope.launch(ioDispatcher) {
             val initialEmit = AtomicBoolean(true)
             settingsRepository.flow
@@ -375,5 +395,28 @@ class TunnelManager(
 
     companion object {
         const val RESTART_TUNNEL_DELAY = 300L
+    }
+
+    private fun detectTetherInterfaces(): Set<String> {
+        val result = mutableSetOf<String>()
+        try {
+            val ifaces = java.net.NetworkInterface.getNetworkInterfaces() ?: return result
+            for (ni in ifaces) {
+                if (!ni.isUp || ni.isLoopback) continue
+                val name = ni.name
+                val isTether = (name.startsWith("wlan") && name != "wlan0")
+                    || name.startsWith("swlan") || name.startsWith("ap")
+                    || name.startsWith("ncm") || name.startsWith("rndis")
+                    || name.startsWith("usb") || name.startsWith("bt-pan")
+                    || name.startsWith("bnep")
+                if (!isTether) continue
+                for (ia in ni.interfaceAddresses) {
+                    if (ia.address is java.net.Inet4Address) {
+                        result.add("${name}:${ia.address.hostAddress}/${ia.networkPrefixLength}")
+                    }
+                }
+            }
+        } catch (_: Exception) {}
+        return result
     }
 }
