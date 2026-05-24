@@ -30,7 +30,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.zaneschepke.wireguardautotunnel.core.tether.DeviceDiscovery
 import com.zaneschepke.wireguardautotunnel.core.tether.PortForwarder
@@ -45,7 +44,6 @@ fun TetherSettingsScreen(
     onTetherToggle: (Boolean) -> Unit,
     protectSocket: (java.net.Socket) -> Unit,
 ) {
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val devices = remember { mutableStateListOf<TetheredDevice>() }
     var scanning by remember { mutableStateOf(false) }
@@ -90,7 +88,7 @@ fun TetherSettingsScreen(
                 scanning = true
                 scope.launch {
                     val found = withContext(Dispatchers.IO) {
-                        DeviceDiscovery.findTetheredDevices(context, protectSocket)
+                        DeviceDiscovery.findTetheredDevices(protectSocket)
                     }
                     devices.clear()
                     devices.addAll(found)

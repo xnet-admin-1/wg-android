@@ -1,9 +1,5 @@
 package com.zaneschepke.wireguardautotunnel.core.tether
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
 import java.net.ConnectException
 import java.net.Inet4Address
 import java.net.InetSocketAddress
@@ -18,19 +14,9 @@ data class TetheredDevice(val ip: String, val name: String = "tethered")
 
 object DeviceDiscovery {
 
-    private val FALLBACK_SUBNETS = listOf(
-        "192.168.42.", "192.168.43.", "192.168.44.", "192.168.49.",
-        "172.20.10."
-    )
-
-    private var tetherNetwork: Network? = null
-
-    fun findTetheredDevices(ctx: Context, protectSocket: (Socket) -> Unit = {}): List<TetheredDevice> {
+    fun findTetheredDevices(protectSocket: (Socket) -> Unit = {}): List<TetheredDevice> {
         val devices = ConcurrentHashMap<String, TetheredDevice>()
-
-        val tetherIps = findTetherIps(ctx).ifEmpty { findTetherIpsJava() }.ifEmpty {
-            FALLBACK_SUBNETS.map { "${it}1" }
-        }
+        val tetherIps = findTetherInterfaceIps()
 
         Timber.d("Tether IPs: $tetherIps")
 
@@ -42,55 +28,29 @@ object DeviceDiscovery {
         return devices.values.toList()
     }
 
-    private fun findTetherIps(ctx: Context): List<String> {
-        val ips = mutableListOf<String>()
-        try {
-            val cm = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            for (net in cm.allNetworks) {
-                val caps = cm.getNetworkCapabilities(net) ?: continue
-                if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) continue
-                val lp = cm.getLinkProperties(net) ?: continue
-                for (la in lp.linkAddresses) {
-                    val addr = la.address
-                    if (addr is Inet4Address && !addr.isLoopbackAddress) {
-                        val ip = addr.hostAddress ?: continue
-                        if (isPrivateTether(ip)) {
-                            tetherNetwork = net
-                            ips.add(ip)
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Timber.w(e, "CM scan failed")
-        }
-        return ips
-    }
-
-    private fun findTetherIpsJava(): List<String> {
+    private fun findTetherInterfaceIps(): List<String> {
         val ips = mutableListOf<String>()
         try {
             val ifaces = NetworkInterface.getNetworkInterfaces() ?: return ips
             for (ni in ifaces) {
                 if (!ni.isUp || ni.isLoopback) continue
+                val name = ni.name
+                val isTether = name.startsWith("wlan") && name != "wlan0"
+                        || name.startsWith("swlan") || name.startsWith("ap")
+                        || name.startsWith("ncm") || name.startsWith("rndis")
+                        || name.startsWith("usb")
+                if (!isTether) continue
                 for (ia in ni.interfaceAddresses) {
                     val addr = ia.address
                     if (addr is Inet4Address) {
-                        val ip = addr.hostAddress ?: continue
-                        if (isPrivateTether(ip)) ips.add(ip)
+                        addr.hostAddress?.let { ips.add(it) }
                     }
                 }
             }
         } catch (e: Exception) {
-            Timber.w(e, "Java iface scan failed")
+            Timber.w(e, "Tether iface scan failed")
         }
         return ips
-    }
-
-    private fun isPrivateTether(ip: String): Boolean {
-        // Exclude WG subnets (10.8.x.x typical) — adjust if your WG uses different range
-        if (ip.startsWith("10.8.")) return false
-        return ip.startsWith("192.168.") || ip.startsWith("172.") || ip.startsWith("10.")
     }
 
     private fun probeSubnet(
@@ -102,7 +62,6 @@ object DeviceDiscovery {
         Timber.d("Probing $prefix* (self=$selfIp)")
 
         val executor = Executors.newFixedThreadPool(50)
-        val net = tetherNetwork
 
         for (i in 1..254) {
             val target = "$prefix$i"
@@ -110,11 +69,7 @@ object DeviceDiscovery {
             executor.submit {
                 try {
                     val s = Socket()
-                    if (net != null) {
-                        net.bindSocket(s)
-                    } else {
-                        protectSocket(s)
-                    }
+                    protectSocket(s)
                     s.connect(InetSocketAddress(target, 80), 400)
                     s.close()
                     devices[target] = TetheredDevice(target)
