@@ -27,13 +27,16 @@ class TetherWatchHandler(
     private var lastInterfaces = emptySet<String>()
 
     init {
+        Timber.d("TetherWatchHandler: init, backend=${backend::class.simpleName}")
         applicationScope.launch(ioDispatcher) {
             combine(
                 activeTunnels.map { it.isNotEmpty() }.distinctUntilChanged(),
                 settingsRepository.flow.map { it.isTetherSharingEnabled }.distinctUntilChanged(),
             ) { tunnelActive, tetherEnabled ->
+                Timber.d("TetherWatchHandler: tunnelActive=$tunnelActive tetherEnabled=$tetherEnabled")
                 tunnelActive && tetherEnabled
             }.distinctUntilChanged().collect { shouldWatch ->
+                Timber.d("TetherWatchHandler: shouldWatch=$shouldWatch")
                 if (shouldWatch) {
                     while (isActive) {
                         val current = detectTetherInterfaces()
