@@ -7,6 +7,7 @@ import com.zaneschepke.wireguardautotunnel.core.service.ServiceManager
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.TunnelBackend
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.AdbForwardingHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.DynamicDnsHandler
+import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TetherWatchHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelActiveStatePersister
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelMonitorHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.handler.TunnelServiceHandler
@@ -59,6 +60,7 @@ class TunnelManager(
     kernelBackend: TunnelBackend,
     userspaceBackend: TunnelBackend,
     proxyUserspaceBackend: TunnelBackend,
+    private val userspaceAmBackend: org.amnezia.awg.backend.Backend,
     networkMonitor: NetworkMonitor,
     networkUtils: NetworkUtils,
     powerManager: PowerManager,
@@ -214,6 +216,15 @@ class TunnelManager(
         AdbForwardingHandler(
             activeTunnels = activeTunnels,
             settingsRepository = settingsRepository,
+            applicationScope = applicationScope,
+            ioDispatcher = ioDispatcher,
+        )
+
+    private val tetherWatchHandler =
+        TetherWatchHandler(
+            activeTunnels = activeTunnels,
+            settingsRepository = settingsRepository,
+            backend = userspaceAmBackend,
             applicationScope = applicationScope,
             ioDispatcher = ioDispatcher,
         )

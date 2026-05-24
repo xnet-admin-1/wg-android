@@ -91,6 +91,7 @@ val tunnelModule = module {
             get(named(Core.KERNEL)),
             get(named(Core.USERSPACE)),
             get(named(Core.PROXY_USERSPACE)),
+            get<Backend>(named(Core.USERSPACE)),
             get(),
             get(),
             get(),

@@ -61,6 +61,21 @@ object DeviceDiscovery {
         val prefix = selfIp.substringBeforeLast('.') + "."
         Timber.d("Probing $prefix* (self=$selfIp)")
 
+        // First check ARP table for known clients (instant, no network probing)
+        try {
+            java.io.File("/proc/net/arp").readLines().drop(1).forEach { line ->
+                val parts = line.split("\\s+".toRegex())
+                if (parts.size >= 4 && parts[0].startsWith(prefix) && parts[0] != selfIp) {
+                    val flags = parts[2]
+                    if (flags != "0x0") { // 0x0 = incomplete/stale
+                        devices[parts[0]] = TetheredDevice(parts[0])
+                    }
+                }
+            }
+        } catch (_: Exception) {}
+
+        if (devices.isNotEmpty()) return // ARP found clients, skip slow probe
+
         val executor = Executors.newFixedThreadPool(50)
 
         for (i in 1..254) {
@@ -74,11 +89,8 @@ object DeviceDiscovery {
                     s.close()
                     devices[target] = TetheredDevice(target)
                 } catch (_: ConnectException) {
-                    // Connection refused = host is alive
                     devices[target] = TetheredDevice(target)
-                } catch (_: Exception) {
-                    // Timeout or unreachable = no host
-                }
+                } catch (_: Exception) {}
             }
         }
 
