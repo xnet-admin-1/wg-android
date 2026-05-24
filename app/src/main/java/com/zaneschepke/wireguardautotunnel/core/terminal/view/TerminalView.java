@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
@@ -978,8 +979,10 @@ public final class TerminalView extends View {
 
     if (mIsSelectingText) {
       if (mLeftSelectionHandle == null) {
-        mLeftSelectionHandle = (BitmapDrawable) getContext().getDrawable(android.R.drawable.btn_default);
-        mRightSelectionHandle = (BitmapDrawable) getContext().getDrawable(android.R.drawable.btn_default);
+        Drawable left = getContext().getDrawable(android.R.drawable.ic_menu_more);
+        Drawable right = getContext().getDrawable(android.R.drawable.ic_menu_more);
+        if (left instanceof BitmapDrawable) mLeftSelectionHandle = (BitmapDrawable) left;
+        if (right instanceof BitmapDrawable) mRightSelectionHandle = (BitmapDrawable) right;
       }
 
       int cx = (int) (ev.getX() / mRenderer.mFontWidth);
