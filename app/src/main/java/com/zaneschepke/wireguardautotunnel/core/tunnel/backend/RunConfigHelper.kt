@@ -84,25 +84,12 @@ class RunConfigHelper(
                 emptyList()
             }
         val amConfig = prep.effectiveConfig.toAmConfig()
-        val peers = if (prep.generalSettings.isTetherSharingEnabled) {
-            val tetherNets = TetherRoutes.TETHER_SUBNETS.map { (addr, prefix) ->
-                InetNetwork.parse("$addr/$prefix")
-            }
-            amConfig.peers.map { peer ->
-                Peer.Builder().apply {
-                    setPublicKey(peer.publicKey)
-                    peer.preSharedKey.ifPresent { setPreSharedKey(it) }
-                    peer.endpoint.ifPresent { setEndpoint(it) }
-                    peer.persistentKeepalive.ifPresent { setPersistentKeepalive(it) }
-                    addAllowedIps(peer.allowedIps + tetherNets)
-                }.build()
-            }
-        } else {
-            amConfig.peers
-        }
+        // Tether NAT is handled by the Go binary (awgSetTetherConfig).
+        // No need to add tether subnets to allowedIPs — the default route (0.0.0.0/0)
+        // already captures all traffic including tether. Explicit routes cause flapping.
         return Config.Builder()
             .setInterface(amConfig.`interface`)
-            .addPeers(peers)
+            .addPeers(amConfig.peers)
             .addProxies(proxies)
             .setDnsSettings(
                 org.amnezia.awg.config.DnsSettings(
