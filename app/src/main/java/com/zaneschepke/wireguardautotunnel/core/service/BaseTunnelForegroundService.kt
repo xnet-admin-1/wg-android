@@ -101,6 +101,8 @@ abstract class BaseTunnelForegroundService : LifecycleService(), TunnelService {
         }
     }
 
+    private var lastTraffic: Pair<Long, Long>? = null
+
     private fun restartStatsUpdaterIfNeeded(activeConfigs: List<TunnelConfig>) {
         val single = activeConfigs.singleOrNull()
 
@@ -108,6 +110,7 @@ abstract class BaseTunnelForegroundService : LifecycleService(), TunnelService {
             statsJob?.cancel()
             statsJob = null
             currentSingleTunnelId = null
+            lastTraffic = null
             return
         }
 
@@ -116,18 +119,22 @@ abstract class BaseTunnelForegroundService : LifecycleService(), TunnelService {
         statsJob?.cancel()
         statsJob = null
         currentSingleTunnelId = single.id
+        lastTraffic = null
 
         statsJob =
             lifecycleScope.launch(ioDispatcher) {
                 while (isActive) {
                     val traffic = readTraffic(single.id)
 
-                    notificationManager.show(
-                        NotificationManager.VPN_NOTIFICATION_ID,
-                        createTunnelNotification(single, consumedTraffic = traffic),
-                    )
+                    if (traffic != lastTraffic) {
+                        lastTraffic = traffic
+                        notificationManager.show(
+                            NotificationManager.VPN_NOTIFICATION_ID,
+                            createTunnelNotification(single, consumedTraffic = traffic),
+                        )
+                    }
 
-                    delay(1000)
+                    delay(5000)
                 }
             }
     }
