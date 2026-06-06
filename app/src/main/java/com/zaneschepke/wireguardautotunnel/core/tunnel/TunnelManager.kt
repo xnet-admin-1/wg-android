@@ -225,31 +225,6 @@ class TunnelManager(
         )
 
     init {
-        Log.d("TetherWatch", "TunnelManager init - starting tether watch")
-        applicationScope.launch(ioDispatcher) {
-            combine(
-                activeTunnels.map { it.isNotEmpty() }.distinctUntilChanged(),
-                settingsRepository.flow.map { it.isTetherSharingEnabled }.distinctUntilChanged(),
-            ) { tunnelActive, tetherEnabled ->
-                Log.d("TetherWatch", "tunnelActive=$tunnelActive tetherEnabled=$tetherEnabled")
-                tunnelActive && tetherEnabled
-            }.distinctUntilChanged().collect { shouldWatch ->
-                Log.d("TetherWatch", "shouldWatch=$shouldWatch")
-                if (shouldWatch) {
-                    var lastIfaces = emptySet<String>()
-                    while (isActive) {
-                        val current = detectTetherInterfaces()
-                        if (current != lastIfaces) {
-                            lastIfaces = current
-                            Log.i("TetherWatch", "interfaces: $current")
-                            (userspaceAmBackend as? org.amnezia.awg.backend.GoBackend)?.refreshTetherNAT()
-                        }
-                        delay(3000)
-                    }
-                }
-            }
-        }
-
         applicationScope.launch(ioDispatcher) {
             val initialEmit = AtomicBoolean(true)
             settingsRepository.flow
@@ -395,28 +370,5 @@ class TunnelManager(
 
     companion object {
         const val RESTART_TUNNEL_DELAY = 300L
-    }
-
-    private fun detectTetherInterfaces(): Set<String> {
-        val result = mutableSetOf<String>()
-        try {
-            val ifaces = java.net.NetworkInterface.getNetworkInterfaces() ?: return result
-            for (ni in ifaces) {
-                if (!ni.isUp || ni.isLoopback) continue
-                val name = ni.name
-                val isTether = (name.startsWith("wlan") && name != "wlan0")
-                    || name.startsWith("swlan") || name.startsWith("ap")
-                    || name.startsWith("ncm") || name.startsWith("rndis")
-                    || name.startsWith("usb") || name.startsWith("bt-pan")
-                    || name.startsWith("bnep")
-                if (!isTether) continue
-                for (ia in ni.interfaceAddresses) {
-                    if (ia.address is java.net.Inet4Address) {
-                        result.add("${name}:${ia.address.hostAddress}/${ia.networkPrefixLength}")
-                    }
-                }
-            }
-        } catch (_: Exception) {}
-        return result
     }
 }

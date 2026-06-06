@@ -137,19 +137,6 @@ fun currentRouteAsNavbarState(
                             }
                         },
                     )
-                License ->
-                    NavbarState(
-                        topLeading = {
-                            IconButton(onClick = { navController.pop() }) {
-                                Icon(
-                                    Icons.AutoMirrored.Rounded.ArrowBack,
-                                    stringResource(R.string.back),
-                                )
-                            }
-                        },
-                        showBottomItems = true,
-                        topTitle = context.getString(R.string.licenses),
-                    )
                 LocationDisclosure -> NavbarState(showBottomItems = true)
                 Lock -> NavbarState(showBottomItems = false)
                 Logs ->
@@ -316,11 +303,6 @@ fun currentRouteAsNavbarState(
                         showBottomItems = true,
                     )
                 }
-                Support ->
-                    NavbarState(
-                        topTitle = context.getString(R.string.support),
-                        showBottomItems = true,
-                    )
                 AndroidIntegrations ->
                     NavbarState(
                         topLeading = {
@@ -479,34 +461,6 @@ fun currentRouteAsNavbarState(
                         topTitle = context.getString(R.string.wifi_detection_method),
                         showBottomItems = true,
                     )
-                Donate -> {
-                    NavbarState(
-                        topLeading = {
-                            IconButton(onClick = { navController.pop() }) {
-                                Icon(
-                                    Icons.AutoMirrored.Rounded.ArrowBack,
-                                    stringResource(R.string.back),
-                                )
-                            }
-                        },
-                        topTitle = context.getString(R.string.donate_title),
-                        showBottomItems = true,
-                    )
-                }
-                Addresses -> {
-                    NavbarState(
-                        topLeading = {
-                            IconButton(onClick = { navController.pop() }) {
-                                Icon(
-                                    Icons.AutoMirrored.Rounded.ArrowBack,
-                                    stringResource(R.string.back),
-                                )
-                            }
-                        },
-                        topTitle = context.getString(R.string.addresses),
-                        showBottomItems = true,
-                    )
-                }
                 is WifiPreferences -> {
                     NavbarState(
                         topLeading = {
@@ -554,7 +508,6 @@ fun currentRouteAsNavbarState(
                         topTitle = context.getString(R.string.ping_target),
                         showBottomItems = true,
                     )
-                Tether -> NavbarState(showBottomItems = true)
                 Terminal -> NavbarState(showBottomItems = true)
                 TerminalFull -> NavbarState(showBottomItems = false)
                 null -> NavbarState()

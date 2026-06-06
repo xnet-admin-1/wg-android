@@ -18,6 +18,8 @@ import com.zaneschepke.wireguardautotunnel.viewmodel.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.module.dsl.singleOf
@@ -29,6 +31,8 @@ import org.koin.dsl.module
 
 @OptIn(KoinExperimentalAPI::class)
 val appModule = module {
+    single { HttpClient(OkHttp) }
+
     single<CoroutineScope>(named(Scope.APPLICATION)) {
         CoroutineScope(SupervisorJob() + get<CoroutineDispatcher>(named(Dispatcher.DEFAULT)))
     }
@@ -61,7 +65,6 @@ val appModule = module {
     viewModelOf(::AutoTunnelViewModel)
     viewModel { (id: Int?) -> ConfigViewModel(get(), get(), get(), id) }
     viewModelOf(::DnsViewModel)
-    viewModelOf(::LicenseViewModel)
     viewModelOf(::LockdownViewModel)
     viewModelOf(::LoggerViewModel)
     viewModelOf(::MonitoringViewModel)
@@ -69,6 +72,5 @@ val appModule = module {
     viewModelOf(::SettingsViewModel)
     viewModelOf(::SharedAppViewModel)
     viewModel { (id: Int) -> SplitTunnelViewModel(get(), get(), get(), id) }
-    viewModel { SupportViewModel(get(), get(named(Dispatcher.MAIN)), get()) }
     viewModel { (id: Int) -> TunnelViewModel(get(), get(), id) }
 }

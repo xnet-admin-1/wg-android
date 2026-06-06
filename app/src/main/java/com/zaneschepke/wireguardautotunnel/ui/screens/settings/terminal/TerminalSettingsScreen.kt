@@ -5,21 +5,30 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zaneschepke.wireguardautotunnel.R
 import com.zaneschepke.wireguardautotunnel.core.terminal.ProotBootstrap
 import com.zaneschepke.wireguardautotunnel.core.terminal.ProotExecutor
+import com.zaneschepke.wireguardautotunnel.ui.common.button.SurfaceRow
+import com.zaneschepke.wireguardautotunnel.ui.common.button.ThemedSwitch
+import com.zaneschepke.wireguardautotunnel.ui.common.text.DescriptionText
+import com.zaneschepke.wireguardautotunnel.viewmodel.SettingsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun TerminalSettingsScreen(onOpenTerminal: () -> Unit) {
+fun TerminalSettingsScreen(onOpenTerminal: () -> Unit, viewModel: SettingsViewModel = koinViewModel()) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var isInstalled by remember { mutableStateOf(ProotBootstrap.isInstalled(ctx)) }
@@ -28,6 +37,8 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit) {
     var pairingCode by remember { mutableStateOf("") }
     var pairingPort by remember { mutableStateOf("") }
     var pairResult by remember { mutableStateOf("") }
+
+    val settingsState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
@@ -111,6 +122,24 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit) {
                     }
                 }
             }
+        }
+
+        // ADB Forwarding Toggle
+        if (!settingsState.isLoading) {
+            SurfaceRow(
+                leading = { Icon(Icons.Filled.Adb, contentDescription = null) },
+                trailing = {
+                    ThemedSwitch(
+                        checked = settingsState.settings.isAdbForwardingEnabled,
+                        onClick = { viewModel.setAdbForwardingEnabled(it) },
+                    )
+                },
+                title = stringResource(R.string.adb_over_vpn),
+                onClick = {
+                    viewModel.setAdbForwardingEnabled(!settingsState.settings.isAdbForwardingEnabled)
+                },
+                description = { DescriptionText(stringResource(R.string.adb_over_vpn_description)) },
+            )
         }
     }
 }

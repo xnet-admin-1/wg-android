@@ -1,140 +1,103 @@
-<h1 align="center">
-WG Tunnel
-</h1>
+# WG Tunnel (monorepo)
 
-<div align="center">
+An alternative FOSS Android client for [WireGuard](https://www.wireguard.com/) and [AmneziaWG](https://docs.amnezia.org/documentation/amnezia-wg/) with auto-tunneling, lockdown mode, proxying, and ADB-over-VPN.
 
-An alternative FOSS Android client for [WireGuard](https://www.wireguard.com/)
-and [AmneziaWG](https://docs.amnezia.org/documentation/amnezia-wg/)
-<br />
-<br />
-<a href="https://github.com/zaneschepke/wgtunnel/issues/new?assignees=zaneschepke&labels=bug&projects=&template=bug_report.md&title=%5BBUG%5D+-+Problem+with+app">Report a Bug</a>
-·
-<a href="https://github.com/zaneschepke/wgtunnel/issues/new?assignees=zaneschepke&labels=enhancement&projects=&template=feature_request.md&title=%5BFEATURE%5D+-+New+feature+request">Request a Feature</a>
-·
-<a href="https://github.com/zaneschepke/wgtunnel/discussions">Ask a Question</a>
+## Repository Structure
 
-</div>
+```
+wg-android/
+├── app/                  # Android application (Kotlin/Compose)
+├── amneziawg-go/         # AmneziaWG Go userspace implementation (forked)
+├── networkmonitor/       # Network state monitoring library
+├── logcatter/            # Logcat reader module
+├── gradle/               # Version catalog & wrapper
+└── buildSrc/             # Build constants & extensions
+```
 
-<br/>
-
-<div align="center">
-
-[![Google Play](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.zaneschepke.wireguardautotunnel)
-[![F-Droid](https://img.shields.io/static/v1?style=for-the-badge&message=F-Droid&color=1976D2&logo=F-Droid&logoColor=FFFFFF&label=)](https://github.com/zaneschepke/fdroid)
-[![Obtainium](https://img.shields.io/badge/Obtainium-414141?style=for-the-badge&logo=Obtainium&logoColor=white)](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22com.zaneschepke.wireguardautotunnel%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fzaneschepke%2Fwgtunnel%22%2C%22author%22%3A%22zaneschepke%22%2C%22name%22%3A%22WG%20Tunnel%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%2C%5C%22filterReleaseTitlesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22filterReleaseNotesByRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22verifyLatestTag%5C%22%3Atrue%2C%5C%22sortMethodChoice%5C%22%3A%5C%22date%5C%22%2C%5C%22useLatestAssetDateAsReleaseDate%5C%22%3Afalse%2C%5C%22releaseTitleAsVersion%5C%22%3Afalse%2C%5C%22trackOnly%5C%22%3Afalse%2C%5C%22versionExtractionRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%22%5C%22%2C%5C%22versionDetection%5C%22%3Atrue%2C%5C%22releaseDateAsVersion%5C%22%3Afalse%2C%5C%22useVersionCodeAsOSVersion%5C%22%3Afalse%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22invertAPKFilter%5C%22%3Afalse%2C%5C%22autoApkFilterByArch%5C%22%3Atrue%2C%5C%22appName%5C%22%3A%5C%22WG%20Tunnel%5C%22%2C%5C%22appAuthor%5C%22%3A%5C%22Zane%20Schepke%5C%22%2C%5C%22shizukuPretendToBeGooglePlay%5C%22%3Afalse%2C%5C%22allowInsecure%5C%22%3Afalse%2C%5C%22exemptFromBackgroundUpdates%5C%22%3Afalse%2C%5C%22skipUpdateNotifications%5C%22%3Afalse%2C%5C%22about%5C%22%3A%5C%22%5C%22%2C%5C%22refreshBeforeDownload%5C%22%3Afalse%7D%22%2C%22overrideSource%22%3Anull%7D)
-
-</div>
-
-<div align="center">
-
-[<img  src="https://img.shields.io/badge/Telegram-26A5E4.svg?style=for-the-badge&logo=Telegram&logoColor=white">](https://t.me/wgtunnel)
-[<img src="https://img.shields.io/badge/Matrix-000000.svg?style=for-the-badge&logo=Matrix&logoColor=white">](https://matrix.to/#/#wg-tunnel-space:matrix.org)
-</div>
-
-<details open="open">
-<summary>Table of Contents</summary>
-
-- [About](#about)
-- [Screenshots](#screenshots)
-- [Features](#features)
-- [Building](#building)
-- [Translation](#translation)
-- [Acknowledgements](#acknowledgements)
-- [Contributing](#contributing)
-
-</details>
-
-<div style="text-align: left;">
-
-## About
-
-WG Tunnel is an alternative Android client for WireGuard and AmneziaWG, inspired by the official WireGuard Android app. It fills gaps in the official client by adding advanced features like auto-tunneling (on-demand VPN activation), while seamlessly supporting both protocols across app modes—including Kernel (for direct WireGuard kernel integration; AmneziaWG not supported), VPN (standard system-level tunneling), Lockdown (a custom kill switch for leak prevention), and Proxy (built-in HTTP/SOCKS5 forwarding)—for enhanced privacy, censorship resistance, and flexibility.
-
-</div>
-
-<div style="text-align: left;">
-
-## Screenshots
-
-</div>
-<div style="display: flex; flex-wrap: wrap; justify-content: left; gap: 10px;">
-    <img label="Main" src="fastlane/metadata/android/en-US/images/phoneScreenshots/main_screen.png" width="200"  alt="Main"/>
-    <img label="Config" src="fastlane/metadata/android/en-US/images/phoneScreenshots/config_screen.png" width="200"  alt="Config"/>
-    <img label="Settings" src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings_screen.png" width="200"  alt="Settings"/>
-    <img label="Auto-tunnel" src="fastlane/metadata/android/en-US/images/phoneScreenshots/auto_screen.png" width="200"  alt="Auto-tunnel"/>
-</div>
-
-## Features
-
-- **Tunnel Import Methods**: Easily add tunnels using .conf files, ZIP archives, manual entry, or QR code scanning.
-- **Auto-Tunneling**: Automatically activate tunnels based on Wi-Fi SSID, Ethernet connections, or mobile data networks.
-- **Split Tunneling**: Flexible support for routing specific apps or traffic through the VPN.
-- **WireGuard Modes**: Full compatibility with WireGuard in both kernel and userspace implementations.
-- **AmneziaWG Integration**: Userspace mode for AmneziaWG, providing robust censorship evasion.
-- **Always-On VPN**: Ensures continuous protection with Android's Always-On VPN feature.
-- **Quick Controls**: Quick Settings tile and home screen shortcuts for easy VPN toggling.
-- **Automation Support**: Intent-based automation for controlling tunnels.
-- **Auto-Restore**: Seamlessly restores auto-tunneling and active tunnels after device restarts or app updates.
-- **Proxying Options**: Built-in HTTP and SOCKS5 proxy support within tunnels.
-- **Lockdown Mode**: Custom kill switch for maximum leak prevention and security.
-- **Dynamic DNS Handling**: Detects and updates DNS changes without tunnel restarts.
-- **Monitoring Tools**: Advanced tunnel monitoring features for tunnel performance monitoring.
-- **Android TV Support**: Android TV support for secure streaming and browsing.
-- **Advanced DNS**: DNS over HTTPS support for tunnel endpoint resolutions.
-- **ADB over VPN**: Forward ADB wireless debugging over WireGuard on a stable port (5555) for remote device access.
-- **Tether VPN Sharing**: Share your VPN connection with tethered devices, with per-device port forwarding.
+The `amneziawg-go/` directory contains the Go tunnel implementation consumed by [amneziawg-android](https://github.com/xnet-admin-1/amneziawg-android) (the JNI bridge published as `com.zaneschepke:amneziawg-android`).
 
 ## Building
+
+### Prerequisites
+
+- JDK 21+
+- Android SDK (compile SDK 35, NDK 28.x)
+- Go 1.24+ (for native tunnel library)
+- CMake 3.22+
+
+### Quick build (uses published Maven artifact)
 
 ```sh
 git clone https://github.com/xnet-admin-1/wg-android
 cd wg-android
+./gradlew assembleGoogleRelease
 ```
 
+### Full build from source (including amneziawg-go)
+
+Build the native tunnel library first:
+
 ```sh
-./gradlew assembleDebug
+# Clone amneziawg-android (JNI wrapper)
+git clone --recurse-submodules https://github.com/xnet-admin-1/amneziawg-android /tmp/amneziawg-android
+
+# Point its go.mod replace to this repo's amneziawg-go
+sed -i "s|replace github.com/amnezia-vpn/amneziawg-go => .*|replace github.com/amnezia-vpn/amneziawg-go => $(pwd)/amneziawg-go|" \
+  /tmp/amneziawg-android/tunnel/tools/libwg-go/go.mod
+
+# Publish to mavenLocal
+cd /tmp/amneziawg-android
+./gradlew :tunnel:publishToMavenLocal -x signReleasePublication
 ```
+
+Then build the app (mavenLocal is already configured in `settings.gradle.kts`):
+
+```sh
+cd wg-android
+./gradlew assembleGoogleRelease
+```
+
+### Signing
+
+Set environment variables or `local.properties`:
+
+```
+KEY_STORE_PATH=/path/to/upload.keystore
+SIGNING_STORE_PASSWORD=...
+SIGNING_KEY_ALIAS=...
+SIGNING_KEY_PASSWORD=...
+```
+
+## Features
+
+- **Auto-Tunneling** — activate tunnels based on Wi-Fi SSID, Ethernet, or mobile data
+- **Split Tunneling** — per-app or per-route VPN routing
+- **AmneziaWG** — censorship-resistant protocol (userspace)
+- **WireGuard Kernel Mode** — direct kernel integration for performance
+- **Lockdown Mode** — custom kill switch for leak prevention
+- **Proxy Mode** — built-in HTTP/SOCKS5 forwarding
+- **ADB over VPN** — forward wireless debugging over the tunnel on port 5555
+- **Tether VPN Sharing** — share VPN with tethered devices
+- **Embedded Terminal** — Alpine Linux shell with on-device ADB pairing
+- **Android TV** — full TV remote support
+- **Monitoring** — ping monitor, local logging, handshake status
 
 ## ADB over VPN
 
-Access your device's full ADB remotely through the WireGuard tunnel — no USB, no LAN required.
+Access your device remotely through the WireGuard tunnel:
 
-**Setup:**
-1. Enable Developer Options → Wireless Debugging on the device
-2. In the app: Settings → Android Integrations → toggle **ADB over VPN**
+1. Enable Developer Options → Wireless Debugging
+2. Settings → Android Integrations → Terminal & ADB → toggle **ADB over VPN**
 3. From your PC: `adb connect <device-wg-ip>:5555`
 
-The app automatically discovers adbd's random port and forwards it to a stable port 5555 on the WireGuard interface. Port changes are tracked every 15 seconds.
-
-**First-time pairing** must be done while the pairing port is reachable (same network or over WireGuard):
+First-time pairing can be done from the in-app terminal or over the tunnel:
 ```sh
 adb pair <device-wg-ip>:<pairing-port> <code>
 adb connect <device-wg-ip>:5555
 ```
 
-## Translation
-
-This app is using [Weblate](https://weblate.org) to assist with translations.
-
-Help translate WG Tunnel into your language
-at [Hosted Weblate](https://hosted.weblate.org/engage/wg-tunnel/).\
-[![Translation status](https://hosted.weblate.org/widgets/wg-tunnel/-/multi-auto.svg)](https://hosted.weblate.org/engage/wg-tunnel/)
-
 ## Acknowledgements
 
-Thank you to the following:
-
-- All of the users that have helped contribute to the project with ideas, translations, feedback, bug reports, testing, and donations.
-- [WireGuard](https://www.wireguard.com/) - Jason A. Donenfeld (https://github.com/WireGuard/wireguard-android)
-- [AmneziaWG](https://docs.amnezia.org/documentation/amnezia-wg/) - Amnezia Team (https://github.com/amnezia-vpn/amneziawg-android)
-- [JetBrains](https://jetbrains.com) - For supporting open-source developers with free software licenses.
-
-## Contributing
-
-Any contributions in the form of feedback, issues, code, or translations are welcome and much
-appreciated!
-
-Please read
-the [code of conduct](https://github.com/zaneschepke/wgtunnel?tab=coc-ov-file#contributor-code-of-conduct)
-before contributing.
+- [WireGuard](https://www.wireguard.com/) — Jason A. Donenfeld
+- [AmneziaWG](https://github.com/amnezia-vpn/amneziawg-go) — Amnezia Team
+- [WG Tunnel](https://github.com/zaneschepke/wgtunnel) — Zane Schepke (upstream)

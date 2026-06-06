@@ -4,11 +4,9 @@ import androidx.annotation.Keep
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bolt
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.QuestionMark
 import androidx.compose.material.icons.outlined.Settings
 import androidx.navigation3.runtime.NavKey
 import com.zaneschepke.wireguardautotunnel.R
@@ -18,11 +16,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Route : NavKey {
 
-    @Keep @Serializable data object Support : Route()
-
     @Keep @Serializable data object Lock : Route()
-
-    @Keep @Serializable data object License : Route()
 
     @Keep @Serializable data object Logs : Route()
 
@@ -68,15 +62,12 @@ sealed class Route : NavKey {
 
     @Keep @Serializable data object LocationDisclosure : Route()
 
-    @Keep @Serializable data object Donate : Route()
 
-    @Keep @Serializable data object Addresses : Route()
+
 
     @Keep @Serializable data class PreferredTunnel(val tunnelNetwork: TunnelNetwork) : Route()
 
     @Keep @Serializable data object PingTarget : Route()
-
-    @Keep @Serializable data object Tether : Route()
 
     @Keep @Serializable data object Terminal : Route()
 
@@ -99,14 +90,7 @@ enum class Tab(
 ) {
     TUNNELS(Route.Tunnels, R.string.tunnels, Icons.Outlined.Home, Icons.Filled.Home, 0),
     AUTOTUNNEL(Route.AutoTunnel, R.string.auto_tunnel, Icons.Outlined.Bolt, Icons.Filled.Bolt, 1),
-    SETTINGS(Route.Settings, R.string.settings, Icons.Outlined.Settings, Icons.Filled.Settings, 2),
-    SUPPORT(
-        Route.Support,
-        R.string.support,
-        Icons.Outlined.QuestionMark,
-        Icons.Filled.QuestionMark,
-        3,
-    );
+    SETTINGS(Route.Settings, R.string.settings, Icons.Outlined.Settings, Icons.Filled.Settings, 2);
 
     companion object {
         fun fromRoute(route: Route): Tab =
@@ -135,14 +119,9 @@ enum class Tab(
                 Route.Display,
                 Route.PingTarget,
                 is Route.ConfigGlobal,
-                Route.Tether,
                 Route.Terminal,
                 Route.TerminalFull,
                 Route.Logs -> SETTINGS
-                is Route.Support,
-                Route.License,
-                Route.Donate,
-                Route.Addresses -> SUPPORT
             }
     }
 }

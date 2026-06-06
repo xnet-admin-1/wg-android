@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.automirrored.outlined.CallSplit
 import androidx.compose.material.icons.automirrored.outlined.ViewQuilt
 import androidx.compose.material.icons.outlined.Android
@@ -300,16 +298,8 @@ fun SettingsScreen(
                     }
                 },
             )
-            SurfaceRow(
-                leading = { Icon(Icons.Outlined.Share, contentDescription = null) },
-                title = "Tether VPN Sharing",
-                onClick = { navController.push(Route.Tether) },
-            )
-            SurfaceRow(
-                leading = { Icon(Icons.Outlined.Share, contentDescription = null) },
-                title = "Terminal & ADB",
-                onClick = { navController.push(Route.Terminal) },
-            )
+
         }
+        com.zaneschepke.wireguardautotunnel.ui.common.label.VersionFooter()
     }
 }

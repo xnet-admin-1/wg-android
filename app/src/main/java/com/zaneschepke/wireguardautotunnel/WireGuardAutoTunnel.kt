@@ -9,7 +9,7 @@ import com.zaneschepke.wireguardautotunnel.di.Scope
 import com.zaneschepke.wireguardautotunnel.di.appModule
 import com.zaneschepke.wireguardautotunnel.di.databaseModule
 import com.zaneschepke.wireguardautotunnel.di.dispatchersModule
-import com.zaneschepke.wireguardautotunnel.di.networkModule
+
 import com.zaneschepke.wireguardautotunnel.di.tunnelModule
 import com.zaneschepke.wireguardautotunnel.di.workerModule
 import com.zaneschepke.wireguardautotunnel.domain.repository.MonitoringSettingsRepository
@@ -27,7 +27,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.GlobalContext.startKoin
-import org.koin.core.lazyModules
 import org.koin.core.option.viewModelScopeFactory
 import org.koin.core.qualifier.named
 import timber.log.Timber
@@ -49,7 +48,6 @@ class WireGuardAutoTunnel : Application(), KoinComponent {
             workManagerFactory()
             modules(dispatchersModule, appModule, databaseModule, tunnelModule, workerModule)
             options(viewModelScopeFactory())
-            lazyModules(networkModule)
         }
         instance = this
         if (BuildConfig.DEBUG) {

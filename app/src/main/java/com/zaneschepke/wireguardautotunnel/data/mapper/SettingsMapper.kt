@@ -19,7 +19,6 @@ fun Entity.toDomain(): Domain =
         isPinLockEnabled = isPinLockEnabled,
         isAlwaysOnVpnEnabled = isAlwaysOnVpnEnabled,
         alreadyDonated = alreadyDonated,
-        isTetherSharingEnabled = isTetherSharingEnabled,
         isAdbForwardingEnabled = isAdbForwardingEnabled,
     )
 
@@ -38,6 +37,5 @@ fun Domain.toEntity(): Entity =
         isPinLockEnabled = isPinLockEnabled,
         isAlwaysOnVpnEnabled = isAlwaysOnVpnEnabled,
         alreadyDonated = alreadyDonated,
-        isTetherSharingEnabled = isTetherSharingEnabled,
         isAdbForwardingEnabled = isAdbForwardingEnabled,
     )

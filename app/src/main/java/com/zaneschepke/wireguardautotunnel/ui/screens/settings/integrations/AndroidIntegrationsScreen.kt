@@ -11,7 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Launch
 import androidx.compose.material.icons.filled.AppShortcut
-import androidx.compose.material.icons.filled.Adb
+import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.ContentCopy
@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zaneschepke.wireguardautotunnel.R
 import com.zaneschepke.wireguardautotunnel.ui.LocalIsAndroidTV
+import com.zaneschepke.wireguardautotunnel.ui.LocalNavController
+import com.zaneschepke.wireguardautotunnel.ui.navigation.Route
 import com.zaneschepke.wireguardautotunnel.ui.common.button.SurfaceRow
 import com.zaneschepke.wireguardautotunnel.ui.common.button.ThemedSwitch
 import com.zaneschepke.wireguardautotunnel.ui.common.functions.rememberClipboardHelper
@@ -52,6 +54,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun AndroidIntegrationsScreen(viewModel: SettingsViewModel = koinViewModel()) {
     val context = LocalContext.current
+    val navController = LocalNavController.current
     val isTv = LocalIsAndroidTV.current
 
     val settingsState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
@@ -195,18 +198,9 @@ fun AndroidIntegrationsScreen(viewModel: SettingsViewModel = koinViewModel()) {
                 }
             }
             SurfaceRow(
-                leading = { Icon(Icons.Filled.Adb, contentDescription = null) },
-                trailing = {
-                    ThemedSwitch(
-                        checked = settingsState.settings.isAdbForwardingEnabled,
-                        onClick = { viewModel.setAdbForwardingEnabled(it) },
-                    )
-                },
-                title = stringResource(R.string.adb_over_vpn),
-                onClick = {
-                    viewModel.setAdbForwardingEnabled(!settingsState.settings.isAdbForwardingEnabled)
-                },
-                description = { DescriptionText(stringResource(R.string.adb_over_vpn_description)) },
+                leading = { Icon(Icons.Filled.Terminal, contentDescription = null) },
+                title = "Terminal & ADB",
+                onClick = { navController.push(Route.Terminal) },
             )
         }
     }

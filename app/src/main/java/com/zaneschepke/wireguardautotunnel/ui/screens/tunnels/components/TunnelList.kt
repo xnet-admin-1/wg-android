@@ -133,5 +133,6 @@ fun TunnelList(
                 },
             )
         }
+        item { com.zaneschepke.wireguardautotunnel.ui.common.label.VersionFooter() }
     }
 }

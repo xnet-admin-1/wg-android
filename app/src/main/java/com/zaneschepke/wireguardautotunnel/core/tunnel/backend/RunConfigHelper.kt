@@ -1,6 +1,5 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.backend
 
-import com.zaneschepke.wireguardautotunnel.core.tether.TetherRoutes
 import com.zaneschepke.wireguardautotunnel.data.model.AppMode
 import com.zaneschepke.wireguardautotunnel.data.model.DnsProtocol
 import com.zaneschepke.wireguardautotunnel.domain.events.InvalidConfig
@@ -84,9 +83,6 @@ class RunConfigHelper(
                 emptyList()
             }
         val amConfig = prep.effectiveConfig.toAmConfig()
-        // Tether NAT is handled by the Go binary (awgSetTetherConfig).
-        // No need to add tether subnets to allowedIPs — the default route (0.0.0.0/0)
-        // already captures all traffic including tether. Explicit routes cause flapping.
         return Config.Builder()
             .setInterface(amConfig.`interface`)
             .addPeers(amConfig.peers)

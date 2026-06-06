@@ -252,7 +252,8 @@
 		<receiver
 			android:name=".core.broadcast.RemoteControlReceiver"
 			android:enabled="true"
-			android:exported="true" tools:ignore="ExportedReceiver">
+			android:exported="true"
+			android:permission="${applicationId}.permission.CONTROL_TUNNELS">
 			<intent-filter>
 				<action android:name="com.zaneschepke.wireguardautotunnel.START_TUNNEL" />
 				<action android:name="com.zaneschepke.wireguardautotunnel.STOP_TUNNEL" />

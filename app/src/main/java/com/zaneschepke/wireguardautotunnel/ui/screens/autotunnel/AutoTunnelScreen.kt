@@ -325,5 +325,6 @@ fun AutoTunnelScreen(
                 onClick = { navController.push(Route.AdvancedAutoTunnel) },
             )
         }
+        com.zaneschepke.wireguardautotunnel.ui.common.label.VersionFooter()
     }
 }

@@ -111,11 +111,8 @@ class SharedAppViewModel(
                             appMode = settings.appMode,
                             locale = settings.locale ?: LocaleUtil.OPTION_PHONE_LANGUAGE,
                             tunnelNames = tunNames,
-                            alreadyDonated = settings.alreadyDonated,
-                            isTetherSharingEnabled = settings.isTetherSharingEnabled,
                             isLocationDisclosureShown = appState.isLocationDisclosureShown,
                             isBatteryOptimizationShown = appState.isBatteryOptimizationDisableShown,
-                            shouldShowDonationSnackbar = appState.shouldShowDonationSnackbar,
                             selectedTunnelCount = selectedTunCount,
                             pinLockEnabled = settings.isPinLockEnabled,
                             isAutoTunnelActive = autoTunnelActive,
@@ -157,11 +154,6 @@ class SharedAppViewModel(
     }
 
     fun setTheme(theme: Theme) = intent { settingsRepository.updateTheme(theme) }
-
-    fun toggleTetherSharing(enabled: Boolean) = intent {
-        val current = settingsRepository.getGeneralSettings()
-        settingsRepository.upsert(current.copy(isTetherSharingEnabled = enabled))
-    }
 
     fun setLocale(locale: String) = intent {
         settingsRepository.updateLocale(locale)
@@ -213,10 +205,6 @@ class SharedAppViewModel(
             }
         }
         settingsRepository.updateAppMode(appMode)
-    }
-
-    fun setShouldShowDonationSnackbar(to: Boolean) = intent {
-        appStateRepository.setShouldShowDonationSnackbar(to)
     }
 
     suspend fun postSideEffect(globalSideEffect: GlobalSideEffect) {

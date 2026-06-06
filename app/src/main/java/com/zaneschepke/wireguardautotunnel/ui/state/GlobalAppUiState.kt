@@ -10,13 +10,10 @@ data class GlobalAppUiState(
     val locale: String = LocaleUtil.OPTION_PHONE_LANGUAGE,
     val pinLockEnabled: Boolean = false,
     val appMode: AppMode = AppMode.VPN,
-    val shouldShowDonationSnackbar: Boolean = false,
     val isLocationDisclosureShown: Boolean = false,
     val isBatteryOptimizationShown: Boolean = false,
     val isAutoTunnelActive: Boolean = false,
     val tunnelNames: Map<Int, String> = emptyMap(),
     val selectedTunnelCount: Int = 0,
-    val alreadyDonated: Boolean = false,
     val isPinVerified: Boolean = false,
-    val isTetherSharingEnabled: Boolean = false,
 )

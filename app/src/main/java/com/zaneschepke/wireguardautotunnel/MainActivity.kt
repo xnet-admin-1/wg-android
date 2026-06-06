@@ -42,13 +42,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -97,15 +92,13 @@ import com.zaneschepke.wireguardautotunnel.ui.screens.settings.lockdown.Lockdown
 import com.zaneschepke.wireguardautotunnel.ui.screens.settings.monitoring.TunnelMonitoringScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.settings.monitoring.logs.LogsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.settings.monitoring.ping.PingTargetScreen
-import com.zaneschepke.wireguardautotunnel.ui.screens.support.SupportScreen
-import com.zaneschepke.wireguardautotunnel.ui.screens.support.donate.DonateScreen
-import com.zaneschepke.wireguardautotunnel.ui.screens.support.donate.crypto.AddressesScreen
-import com.zaneschepke.wireguardautotunnel.ui.screens.support.license.LicenseScreen
+
+
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.TunnelsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.config.ConfigScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.settings.TunnelSettingsScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.sort.SortScreen
-import com.zaneschepke.wireguardautotunnel.ui.screens.settings.tether.TetherSettingsScreen
+
 import com.zaneschepke.wireguardautotunnel.ui.screens.tunnels.splittunnel.SplitTunnelScreen
 import com.zaneschepke.wireguardautotunnel.ui.theme.AlertRed
 import com.zaneschepke.wireguardautotunnel.ui.theme.OffWhite
@@ -266,53 +259,6 @@ class MainActivity : AppCompatActivity() {
                             vpnPermissionDenied = false
                         },
                     )
-
-                    val annotatedMessage = buildAnnotatedString {
-                        append(context.getString(R.string.donation_prompt_prefix))
-                        append(" ")
-                        withLink(
-                            LinkAnnotation.Clickable(
-                                tag = context.getString(R.string.support),
-                                styles =
-                                    TextLinkStyles(
-                                        style =
-                                            SpanStyle(
-                                                textDecoration = TextDecoration.Underline,
-                                                color = MaterialTheme.colorScheme.primary,
-                                            ),
-                                        focusedStyle =
-                                            SpanStyle(
-                                                textDecoration = TextDecoration.Underline,
-                                                color = MaterialTheme.colorScheme.primary,
-                                                background =
-                                                    MaterialTheme.colorScheme.primary.copy(
-                                                        alpha = 0.2f
-                                                    ),
-                                            ),
-                                    ),
-                            ) {
-                                snackbarState.dismissCurrent()
-                                navController.push(Route.Donate)
-                            }
-                        ) {
-                            append(context.getString(R.string.donation_prompt_link))
-                        }
-                        append(" ")
-                        append(context.getString(R.string.donation_prompt_suffix))
-                    }
-
-                    LaunchedEffect(Unit) {
-                        if (uiState.shouldShowDonationSnackbar && !uiState.alreadyDonated) {
-                            viewModel.setShouldShowDonationSnackbar(false)
-                            snackbarState.showSnackbar(
-                                SnackbarInfo(
-                                    message = annotatedMessage,
-                                    type = SnackbarType.THANK_YOU,
-                                    durationMs = 30_000L,
-                                )
-                            )
-                        }
-                    }
 
                     if (showLock) {
                         PinManager.initialize(context = this@MainActivity)
@@ -492,13 +438,7 @@ class MainActivity : AppCompatActivity() {
                                                     LockdownSettingsScreen()
                                                 }
                                                 entry<Route.ProxySettings> { ProxySettingsScreen() }
-                                                entry<Route.Tether> {
-                                                    TetherSettingsScreen(
-                                                        isTetherEnabled = uiState.isTetherSharingEnabled,
-                                                        onTetherToggle = { viewModel.toggleTetherSharing(it) },
-                                                        protectSocket = { com.zaneschepke.wireguardautotunnel.core.tether.VpnProtect.protect(it) },
-                                                    )
-                                                }
+
                                                 entry<Route.Terminal> {
                                                     com.zaneschepke.wireguardautotunnel.ui.screens.settings.terminal.TerminalSettingsScreen(
                                                         onOpenTerminal = { navController.push(Route.TerminalFull) },
@@ -511,10 +451,9 @@ class MainActivity : AppCompatActivity() {
                                                 entry<Route.Language> { LanguageScreen() }
                                                 entry<Route.Display> { DisplayScreen() }
                                                 entry<Route.Logs> { LogsScreen() }
-                                                entry<Route.Support> { SupportScreen() }
-                                                entry<Route.License> { LicenseScreen() }
-                                                entry<Route.Donate> { DonateScreen() }
-                                                entry<Route.Addresses> { AddressesScreen() }
+
+
+
                                                 entry<Route.PreferredTunnel> { key ->
                                                     PreferredTunnelScreen(key.tunnelNetwork)
                                                 }
