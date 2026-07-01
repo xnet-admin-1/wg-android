@@ -104,16 +104,27 @@ object ProotBootstrap {
 
     private fun distroSetup(ctx: Context, log: (String) -> Unit) {
         val setupMarker = File(envDir(ctx), ".distro_setup_done")
-        if (setupMarker.exists()) return
+        if (setupMarker.exists() && verifyAdbInstalled(ctx)) return
         log("Running apk update && installing tools...")
         try {
-            ProotExecutor.exec(ctx, "apk update && apk upgrade && apk add android-tools", timeoutMs = 120_000)
-            setupMarker.writeText("done")
-            log("Packages installed")
+            val output = ProotExecutor.exec(ctx, "apk update && apk add android-tools", timeoutMs = 120_000)
+            if (verifyAdbInstalled(ctx)) {
+                setupMarker.writeText("done")
+                log("Packages installed")
+            } else {
+                setupMarker.delete()
+                log("Package install failed: $output")
+            }
         } catch (e: Exception) {
+            setupMarker.delete()
             Log.w(TAG, "distro setup failed: ${e.message}")
-            log("Package setup skipped (${e.message})")
+            log("Package setup failed (${e.message})")
         }
+    }
+
+    private fun verifyAdbInstalled(ctx: Context): Boolean {
+        val result = ProotExecutor.exec(ctx, "which adb", timeoutMs = 10_000)
+        return result.contains("/adb")
     }
 
     private fun download(urlStr: String, dest: File, log: (String) -> Unit) {

@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.grgit)
     alias(libs.plugins.licensee)
 }
 
@@ -24,7 +23,6 @@ android {
 
     ksp { arg("room.schemaLocation", "$projectDir/schemas") }
 
-    // fix okhttp proguard issue
     packaging { resources { pickFirsts.add("okhttp3/internal/publicsuffix/publicsuffixes.gz") } }
 
     splits {
@@ -40,13 +38,14 @@ android {
         applicationId = Constants.APP_ID
         minSdk = Constants.MIN_SDK
         targetSdk = Constants.TARGET_SDK
-        versionCode = computeVersionCode()
-        versionName = computeVersionName()
+        versionCode = Constants.VERSION_CODE
+        versionName = Constants.VERSION_NAME
 
-        sourceSets { getByName("debug").assets.srcDirs(files("$projectDir/schemas")) }
+        sourceSets { getByName("main").assets.srcDirs(files("$projectDir/schemas")) }
 
         val languagesArray = buildLanguagesArray(languageList())
         buildConfigField("String[]", "LANGUAGES", "new String[]{ $languagesArray }")
+        buildConfigField("String", "FLAVOR", "\"standalone\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
@@ -54,7 +53,7 @@ android {
 
     signingConfigs {
         create(Constants.RELEASE) {
-            storeFile = file(System.getenv("KEY_STORE_PATH") ?: "keystore/android_keystore.jks")
+            storeFile = file(System.getenv("KEY_STORE_PATH") ?: "xnet-keystore")
             storePassword =
                 LocalProperties.get("SIGNING_STORE_PASSWORD")
                     ?: System.getenv("SIGNING_STORE_PASSWORD")
@@ -71,46 +70,23 @@ android {
         )
         packaging.jniLibs.useLegacyPackaging = true
 
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+            resValue("string", "app_name", "WG Tunnel Debug")
+            resValue("string", "provider", "\"${Constants.APP_NAME}.provider.debug\"")
+        }
+
         release {
             isDebuggable = false
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName(Constants.RELEASE)
             resValue("string", "provider", "\"${Constants.APP_NAME}.provider\"")
-        }
-
-        debug {
-            applicationIdSuffix = ".debug"
-            resValue("string", "app_name", "WG Tunnel Debug")
-            isDebuggable = true
-            resValue("string", "provider", "\"${Constants.APP_NAME}.provider.debug\"")
-        }
-
-        create(Constants.NIGHTLY) {
-            initWith(buildTypes.getByName(Constants.RELEASE))
-            applicationIdSuffix = ".nightly"
-            resValue("string", "app_name", "WG Tunnel Nightly")
-            resValue("string", "provider", "\"${Constants.APP_NAME}.provider.nightly\"")
-        }
-    }
-
-    flavorDimensions.add("type")
-    productFlavors {
-        create("fdroid") {
-            dimension = "type"
-            buildConfigField("String", "FLAVOR", "\"fdroid\"")
-        }
-        create("google") {
-            dimension = "type"
-            buildConfigField("String", "FLAVOR", "\"google\"")
-        }
-        create("standalone") {
-            dimension = "type"
-            buildConfigField("String", "FLAVOR", "\"standalone\"")
         }
     }
 
@@ -136,7 +112,6 @@ android {
     licensee {
         allowedLicenses().forEach { allow(it) }
         allowedLicenseUrls().forEach { allowUrl(it) }
-        // foss, but missing license
         ignoreDependencies("com.github.T8RIN.QuickieExtended")
         ignoreDependencies("com.github.termux.termux-app")
     }
@@ -156,7 +131,7 @@ android {
             val output = this as BaseVariantOutputImpl
             val abi = output.getFilter("ABI")
 
-            val baseFileName = "${Constants.APP_NAME}-${variant.flavorName}-v${variant.versionName}"
+            val baseFileName = "${Constants.APP_NAME}-v${variant.versionName}"
 
             val outputFileName =
                 if (!abi.isNullOrEmpty()) {
@@ -264,7 +239,7 @@ dependencies {
 tasks.register<Copy>("copyLicenseeJsonToAssets") {
     dependsOn("licensee")
     val outputAssets = layout.projectDirectory.dir("src/main/assets")
-    from(layout.buildDirectory.file("reports/licensee/androidFdroidRelease/artifacts.json")) {
+    from(layout.buildDirectory.file("reports/licensee/release/artifacts.json")) {
         rename("artifacts.json", "licenses.json")
     }
     into(outputAssets)
@@ -272,7 +247,6 @@ tasks.register<Copy>("copyLicenseeJsonToAssets") {
 
 tasks.named("preBuild") { dependsOn("copyLicenseeJsonToAssets") }
 
-// https://gist.github.com/obfusk/61046e09cee352ae6dd109911534b12e#fix-proposed-by-linsui-disable-baseline-profiles
 tasks.whenTaskAdded {
     if (name.contains("ArtProfile")) {
         enabled = false

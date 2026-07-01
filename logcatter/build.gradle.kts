@@ -24,8 +24,6 @@ android {
                 "proguard-rules.pro",
             )
         }
-
-        create(Constants.NIGHTLY) { initWith(getByName(Constants.RELEASE)) }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

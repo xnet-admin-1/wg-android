@@ -77,7 +77,6 @@ SIGNING_KEY_PASSWORD=...
 - **Lockdown Mode** — custom kill switch for leak prevention
 - **Proxy Mode** — built-in HTTP/SOCKS5 forwarding
 - **ADB over VPN** — forward wireless debugging over the tunnel on port 5555
-- **Tether VPN Sharing** — share VPN with tethered devices
 - **Embedded Terminal** — Alpine Linux shell with on-device ADB pairing
 - **Android TV** — full TV remote support
 - **Monitoring** — ping monitor, local logging, handshake status
