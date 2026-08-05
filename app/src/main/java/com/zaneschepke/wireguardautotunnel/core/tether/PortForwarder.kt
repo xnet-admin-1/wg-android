@@ -30,6 +30,17 @@ object PortForwarder {
         }
     }
 
+    // Map to track active connections by target
+    private val activeConnections = ConcurrentHashMap<String, MutableSet<ActiveConnection>>()
+
+    data class ActiveConnection(
+        val serverSocket: ServerSocket,
+        val clientSocket: Socket,
+        val upstreamSocket: Socket,
+        val inputPipe: Thread,
+        val outputPipe: Thread
+    )
+
     fun startForDevice(targetHost: String, portSpec: String, bindAddress: String? = null) {
         stopForDevice(targetHost)
         val ports = parsePorts(portSpec)
@@ -45,21 +56,72 @@ object PortForwarder {
                 servers.add(ss)
                 Timber.d("Forwarding ${bindAddress ?: "0.0.0.0"}:$listenPort → $targetHost:$targetPort")
 
-                Thread({
+                val handlerThread = Thread({
                     try {
                         while (!Thread.interrupted()) {
                             val client = ss.accept()
+                            
+                            // Create upstream connection with protection
+                            val upstream = Socket()
                             try {
-                                val upstream = Socket()
                                 protectSocket(upstream)
                                 upstream.connect(InetSocketAddress(targetHost, targetPort), 5000)
                                 upstream.tcpNoDelay = true
                                 client.tcpNoDelay = true
-                                pipe(client, upstream)
-                                pipe(upstream, client)
+                                
+                                // Create bi-directional pipes
+                                val inputPipe = Thread({
+                                    try {
+                                        val buf = ByteArray(8192)
+                                        val input = client.getInputStream()
+                                        val output = upstream.getOutputStream()
+                                        var n: Int
+                                        while (input.read(buf).also { n = it } > 0) {
+                                            output.write(buf, 0, n)
+                                            output.flush()
+                                        }
+                                    } catch (_: java.io.IOException) {
+                                        // Connection closed normally
+                                    } catch (e: Exception) {
+                                        Timber.w("Input pipe error: ${e.message}")
+                                    } finally {
+                                        runCatching { upstream.close() }
+                                        runCatching { client.close() }
+                                    }
+                                }, "pipe-in-${targetHost}:${targetPort}").apply { isDaemon = true }
+                                
+                                val outputPipe = Thread({
+                                    try {
+                                        val buf = ByteArray(8192)
+                                        val input = upstream.getInputStream()
+                                        val output = client.getOutputStream()
+                                        var n: Int
+                                        while (input.read(buf).also { n = it } > 0) {
+                                            output.write(buf, 0, n)
+                                            output.flush()
+                                        }
+                                    } catch (_: java.io.IOException) {
+                                        // Connection closed normally
+                                    } catch (e: Exception) {
+                                        Timber.w("Output pipe error: ${e.message}")
+                                    } finally {
+                                        runCatching { upstream.close() }
+                                        runCatching { client.close() }
+                                    }
+                                }, "pipe-out-${targetHost}:${targetPort}").apply { isDaemon = true }
+                                
+                                // Track active connection
+                                val connection = ActiveConnection(ss, client, upstream, inputPipe, outputPipe)
+                                activeConnections.getOrPut(targetHost) { mutableSetOf() }.add(connection)
+                                
+                                // Start pipes
+                                inputPipe.start()
+                                outputPipe.start()
+                                
                             } catch (e: Exception) {
                                 Timber.w("Forward to $targetHost:$targetPort failed: ${e.message}")
                                 runCatching { client.close() }
+                                runCatching { upstream.close() }
                             }
                         }
                     } catch (e: Exception) {
@@ -74,7 +136,24 @@ object PortForwarder {
     }
 
     fun stopForDevice(targetHost: String) {
-        activeForwards.remove(targetHost)?.forEach { runCatching { it.close() } }
+        // Close all server sockets
+        activeForwards.remove(targetHost)?.forEach { serverSocket ->
+            runCatching { 
+                serverSocket.close() 
+            }
+        }
+        
+        // Close all active connections
+        activeConnections.remove(targetHost)?.forEach { connection ->
+            runCatching { connection.clientSocket.close() }
+            runCatching { connection.upstreamSocket.close() }
+            
+            // Interrupt pipes if they're still running
+            runCatching { connection.inputPipe.interrupt() }
+            runCatching { connection.outputPipe.interrupt() }
+        }
+        
+        Timber.d("PortForwarder: stopped all connections for $targetHost")
     }
 
     fun stopAll() {
