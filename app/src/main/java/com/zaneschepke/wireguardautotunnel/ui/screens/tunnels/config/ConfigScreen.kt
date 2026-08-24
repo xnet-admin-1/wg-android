@@ -47,7 +47,7 @@ fun ConfigScreen(
     val locale = Locale.current.platformLocale
 
     var configProxy by remember {
-        mutableStateOf(uiState.tunnel?.let { ConfigProxy.from(it.toAmConfig()) } ?: ConfigProxy())
+        mutableStateOf(uiState.tunnel?.let { ConfigProxy.from(it.toWgConfig()) } ?: ConfigProxy())
     }
 
     var tunnelName by remember { mutableStateOf(uiState.tunnel?.name ?: "") }
@@ -94,15 +94,6 @@ fun ConfigScreen(
             isTunnelNameTaken,
             onInterfaceChange = { configProxy = configProxy.copy(`interface` = it) },
             onTunnelNameChange = { tunnelName = it },
-            onMimicQuic = {
-                configProxy = configProxy.copy(`interface` = configProxy.`interface`.setQuicMimic())
-            },
-            onMimicDns = {
-                configProxy = configProxy.copy(`interface` = configProxy.`interface`.setDnsMimic())
-            },
-            onMimicSip = {
-                configProxy = configProxy.copy(`interface` = configProxy.`interface`.setSipMimic())
-            },
         )
         if (!isGlobalConfig)
             PeersSection(

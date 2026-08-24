@@ -55,15 +55,6 @@
     <string name="settings">அமைப்புகள்</string>
     <string name="support">உதவி</string>
     <string name="kernel">கர்னல்</string>
-    <string name="junk_packet_count">குப்பை பாக்கெட் எண்ணிக்கை</string>
-    <string name="junk_packet_minimum_size">குப்பை பாக்கெட் குறைந்தபட்ச அளவு</string>
-    <string name="junk_packet_maximum_size">குப்பை பாக்கெட் அதிகபட்ச அளவு</string>
-    <string name="init_packet_junk_size">Init பாக்கெட் குப்பை அளவு</string>
-    <string name="response_packet_junk_size">மறுமொழி பாக்கெட் குப்பை அளவு</string>
-    <string name="init_packet_magic_header">Init பாக்கெட் மேசிக் தலைப்பு</string>
-    <string name="response_packet_magic_header">மறுமொழி பாக்கெட் மேசிக் தலைப்பு</string>
-    <string name="transport_packet_magic_header">போக்குவரத்து பாக்கெட் மேசிக் தலைப்பு</string>
-    <string name="underload_packet_magic_header">பாக்கெட் மேசிக் தலைப்பு</string>
     <string name="unsure_how">எப்படி தொடர வேண்டும் என்று உங்களுக்குத் தெரியாவிட்டால்</string>
     <string name="see_the">பார்க்க</string>
     <string name="getting_started_guide">தொடங்குதல் வழிகாட்டி</string>
@@ -73,7 +64,6 @@
     <string name="always_on_message">VPN இணைப்பு இசைவு மறுக்கப்பட்டுள்ளது. சரிபார்க்கவும்</string>
     <string name="always_on_message2">மற்ற எல்லா பயன்பாடுகளுக்கும் எப்போதும் VPN அணைக்கப்பட்டு மீண்டும் முயற்சிக்கவும் என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்</string>
     <string name="root_accepted">ரூட் செல் ஏற்றுக்கொள்ளப்பட்டது</string>
-    <string name="show_amnezia_properties">அம்னேசியா பண்புகளைக் காட்டு</string>
     <string name="never">ஒருபோதும்</string>
     <string name="handshake">ஏண்ட்சேக்</string>
     <string name="logs">பதிவுகள்</string>
@@ -117,10 +107,7 @@
     <string name="pre_down">முன் கீழ்</string>
     <string name="post_down">பின் கீழ்</string>
     <string name="hide_scripts">ச்கிரிப்ட்களை மறைக்கவும்</string>
-    <string name="enable_amnezia_compatibility">அம்னேசியா பொருந்தக்கூடிய தன்மையை இயக்கவும்</string>
     <string name="debounce_delay">நேரந்தவறுகை</string>
-    <string name="hide_amnezia_properties">அம்னேசியா பண்புகளை மறைக்கவும்</string>
-    <string name="remove_amnezia_compatibility">அம்னேசியா பொருந்தக்கூடிய தன்மையை அகற்று</string>
     <string name="exclude_lan">லானை விலக்கு</string>
     <string name="include_lan">லேன் சேர்க்கவும்</string>
     <string name="tunnel_control">சுரங்கப்பாதை கட்டுப்பாடு</string>
@@ -185,7 +172,6 @@
     <string name="delete_logs">பதிவுகளை நீக்கவும் அழிக்கவும்</string>
     <string name="copy">நகலெடு</string>
     <string name="save">சேமி</string>
-    <string name="export_tunnels_amnezia">அம்னேசியாவாக சுரங்கங்களை ஏற்றுமதி செய்யுங்கள்</string>
     <string name="camera_permission_required">கேமரா இசைவு தேவை</string>
     <string name="nothing_here_yet">இன்னும் இங்கே எதுவும் இல்லை!</string>
     <string name="export_success">ஏற்றுமதி செய்</string>
@@ -218,17 +204,14 @@
     <string name="google_donation_message">Unfortunately, due to Google\'s policies, donation links are not allowed in the Play Store version of this app. Please browse the project\'s webpages to find where to donate.</string>
     <string name="tunnel_monitoring">Tunnel monitoring</string>
     <string name="http_bind_address">HTTP bind address</string>
-    <string name="amnezia">Amnezia</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="tunnel_name_taken">Tunnel name is already used.</string>
-    <string name="mimic_dns">Mimic DNS</string>
     <string name="unknown_attribute">Unknown attribute</string>
     <string name="donation_prompt_prefix">Thanks for using WG Tunnel! If you can, please consider</string>
     <string name="hint_template">(%1$s)</string>
     <string name="socks_5_bind_address">SOCKS5 bind address</string>
     <string name="root_required_template">%1$s (root required)</string>
     <string name="website">App website</string>
-    <string name="mimic_quic">Mimic QUIC</string>
     <string name="show_qr">Show QR</string>
     <string name="wifi_settings">Wi-Fi settings</string>
     <string name="backup_success">Backup success. %1$s</string>
@@ -342,7 +325,6 @@
     <string name="sort">Sort</string>
     <string name="_continue">Continue</string>
     <string name="_false">False</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="expiremental_template">%1$s (experimental)</string>
     <string name="display_detailed_ping_stats">Display detailed ping stats</string>
     <string name="unavailable_in_mode">Unavailable in current mode</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.handler
 
 import android.app.Application
-import com.zaneschepke.wireguardautotunnel.core.tether.AdbPortDiscovery
 import com.zaneschepke.wireguardautotunnel.core.tether.PersistentAdbConnection
 import com.zaneschepke.wireguardautotunnel.domain.repository.GeneralSettingRepository
 import com.zaneschepke.wireguardautotunnel.domain.state.TunnelState

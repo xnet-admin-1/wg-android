@@ -75,24 +75,14 @@
     <string name="vpn_channel_name">VPN Benachrichtigungskanal</string>
     <string name="kernel">Kernel</string>
     <string name="error_ssid_exists">SSID existiert bereits</string>
-    <string name="junk_packet_count">Junk-Paket Anzahl</string>
-    <string name="junk_packet_maximum_size">Junk-Paket maximale Grösse</string>
-    <string name="init_packet_junk_size">Initial Junk-Paketgröße</string>
-    <string name="junk_packet_minimum_size">Junk-Paket minimale Grösse</string>
-    <string name="response_packet_junk_size">Antwort Junk-Paketgröße</string>
-    <string name="init_packet_magic_header">Initialpaket magic header</string>
     <string name="getting_started_guide">Schnellstartanleitung</string>
-    <string name="transport_packet_magic_header">Transportpaket magic header</string>
-    <string name="underload_packet_magic_header">Unterlastpaket magic header</string>
     <string name="see_the">wirf einen Blick in die</string>
     <string name="unsure_how">Wenn du nicht sicher bist, wie du weiterverfahren sollst</string>
-    <string name="response_packet_magic_header">Antwortpaket magic header</string>
     <string name="restart_at_boot">Beim Hochfahren starten</string>
     <string name="vpn_settings">VPN-Systemeinstellungen</string>
     <string name="always_on_message">Die Genehmigung für eine VPN-Verbindung wurde verweigert. Bitte überprüfe die</string>
     <string name="always_on_message2">um sicherzustellen, dass Always-on VPN für alle anderen Apps ausgeschaltet ist und versuche es erneut</string>
     <string name="root_accepted">Root-Shell akzeptiert</string>
-    <string name="show_amnezia_properties">Amnezia-Eigenschaften anzeigen</string>
     <string name="never">nie</string>
     <string name="handshake">Letzter Handshake</string>
     <string name="vpn_denied_dialog_title">Genehmigung verweigert</string>
@@ -142,9 +132,6 @@
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="debounce_delay">Entprellverzögerung</string>
     <string name="hide_scripts">Skripte verbergen</string>
-    <string name="enable_amnezia_compatibility">Amnezia Kompatibilität aktivieren</string>
-    <string name="remove_amnezia_compatibility">Amnezia Kompatibilität entfernen</string>
-    <string name="hide_amnezia_properties">Amnezia Eigenschaften verbergen</string>
     <string name="include_lan">LAN einschließen</string>
     <string name="exclude_lan">LAN ausschließen</string>
     <string name="tunnel_control">Tunnelsteuerung</string>
@@ -175,7 +162,6 @@
     <string name="inactive">Inaktiv</string>
     <string name="tunnel_starting">Starte Tunnel</string>
     <string name="enable_remote_app_control">App-Fernsteuerung aktivieren</string>
-    <string name="export_tunnels_amnezia">Tunnel als Amnezia exportieren</string>
     <string name="export_failed">Export fehlgeschlagen</string>
     <string name="app_permission_description">https://hosted.weblate.org/translate/wg-tunnel/strings/en/?checksum=e52d7eb2e28a9a12Steuere Tunnel und Auto-Tunnel Funktionen.</string>
     <string name="dns_resolve_error">DNS-Auflösung fehlgeschlagen</string>
@@ -205,7 +191,6 @@
     <string name="wireguard">WireGuard</string>
     <string name="done">Erledigt</string>
     <string name="show_qr">QR anzeigen</string>
-    <string name="amnezia">Amnezia</string>
     <string name="shizuku">Shizuku</string>
     <string name="legacy_api_description">Eine unter Android 12 veraltete Methode zum Abrufen von Wi-Fi-Informationen verwenden, die Standortabfragen einschränkt, aber auf neueren Geräten möglicherweise nicht zuverlässig funktioniert</string>
     <string name="use_shell_via_shizuku">Shell über Shizuku zum Abrufen von Wi-Fi-Informationen verwenden, wodurch die Notwendigkeit einer Standortgenehmigung auf nichtgerooteten Geräten vermieden wird</string>
@@ -303,9 +288,6 @@
     <string name="password_no_spaces">Passwort kann keine Leerzeichen beinhalten.</string>
     <string name="tunnel_name_taken">Tunnelname bereits in Gebrauch.</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">Mimic QUIC</string>
-    <string name="mimic_dns">Mimic DNS</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="ddns_auto_update">Dynamisches DNS Auto-Update</string>
     <string name="ddns_auto_update_description">Aktualisiert IP bei DDNS Änderungen</string>
     <string name="prefer_ipv6_resolution">IPv6 Gegenstellen-Auflösung bevorzugen</string>
@@ -424,6 +406,4 @@
     <string name="website_url" translatable="false">https://wgtunnel.com</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport-Paket Junk Größe</string>
-    <string name="cookie_packet_junk_size">Cookie-Paket Junk Größe</string>
 </resources>

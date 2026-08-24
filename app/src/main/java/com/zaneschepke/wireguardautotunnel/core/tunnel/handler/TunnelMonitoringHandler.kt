@@ -179,7 +179,7 @@ class TunnelMonitorHandler(
 
                 Timber.d("Starting pinger for ${tunnelConfig.name} with settings")
 
-                val config = tunnelConfig.toAmConfig()
+                val config = tunnelConfig.toWgConfig()
 
                 val pingablePeers = config.peers.filter { it.allowedIps.isNotEmpty() }
                 if (pingablePeers.isEmpty()) return@collectLatest

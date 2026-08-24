@@ -21,21 +21,15 @@
     <string name="pin_created">Kod PIN został pomyślnie utworzony</string>
     <string name="enter_pin">Podaj kod PIN</string>
     <string name="enable_app_lock">Włącz blokadę aplikacji</string>
-    <string name="response_packet_junk_size">Rozmiar śmieciowego pakietu odpowiedzi</string>
-    <string name="response_packet_magic_header">Nagłówek magicznego pakietu odpowiedzi</string>
-    <string name="transport_packet_magic_header">Nagłówek magicznego pakietu transportowego</string>
-    <string name="underload_packet_magic_header">Nagłówek magicznego pakietu niedociążenia</string>
     <string name="see_the">Zobacz</string>
     <string name="restart_at_boot">Uruchom przy rozruchu</string>
     <string name="never">Nigdy</string>
     <string name="handshake">Ostatnie uzgadnianie</string>
-    <string name="show_amnezia_properties">Pokaż właściwości protokołu Amnezia</string>
     <string name="seconds">sek.</string>
     <string name="prominent_background_location_message">Ta funkcja wymaga pozwolenia na dostęp do lokalizacji w tle, aby włączyć monitorowanie SSID sieci Wi-Fi nawet wtedy, gdy aplikacja jest zamknięta. Więcej szczegółów znajdziesz w polityce prywatności znajdującej się na ekranie Obsługa.</string>
     <string name="optional">(opcjonalnie)</string>
     <string name="preshared_key">Klucz wstępnie udostępniony</string>
     <string name="support">Obsługa</string>
-    <string name="init_packet_magic_header">Nagłówek magicznego pakietu początkowego</string>
     <string name="cancel">Anuluj</string>
     <string name="always_on_message2">w celu upewnienia się, że funkcja stałego VPN jest wyłączona dla wszystkich innych aplikacji, następnie spróbuj ponownie</string>
     <string name="root_accepted">Zezwolono na powłokę użytkownika root</string>
@@ -54,7 +48,6 @@
     <string name="dns_servers">Serwery DNS</string>
     <string name="error_file_extension">Plik nie jest w formacie .conf lub .zip</string>
     <string name="copy_public_key">Skopiuj klucz publiczny</string>
-    <string name="junk_packet_minimum_size">Minimalny rozmiar pakietu śmieciowego</string>
     <string name="open_issue">Otwórz zagadnienie</string>
     <string name="thank_you">Dziękujemy za korzystanie z aplikacji WG Tunnel!</string>
     <string name="use_wildcards">Użyj symboli wieloznacznych nazw</string>
@@ -63,7 +56,6 @@
     <string name="kernel">Jądro</string>
     <string name="wildcards_active">Symbole wieloznaczne aktywne</string>
     <string name="create_pin">Utwórz kod PIN</string>
-    <string name="junk_packet_maximum_size">Maksymalny rozmiar pakietu śmieciowego</string>
     <string name="local_logging">Monitor lokalnych dzienników</string>
     <string name="monitoring_state_changes">Monitorowanie zmian stanu</string>
     <string name="add_tunnels_text">Dodaj z pliku lub archiwum ZIP</string>
@@ -93,8 +85,6 @@
     <string name="incorrect_pin">Kod PIN jest nieprawidłowy</string>
     <string name="edit_tunnel">Edytuj tunel</string>
     <string name="settings">Ustawienia</string>
-    <string name="junk_packet_count">Liczba pakietów śmieciowych</string>
-    <string name="init_packet_junk_size">Rozmiar śmieciowego pakietu początkowego</string>
     <string name="vpn_denied_dialog_title">Odmowa zezwolenia</string>
     <string name="logs">Dzienniki</string>
     <string name="appearance">Wygląd</string>
@@ -142,12 +132,9 @@
     <string name="show_scripts">Pokaż skrypty</string>
     <string name="hide_scripts">Ukryj skrypty</string>
     <string name="debounce_delay">Opóźnienie odbicia</string>
-    <string name="enable_amnezia_compatibility">Włącz zgodność z protokołem Amnezia</string>
-    <string name="remove_amnezia_compatibility">Usuń zgodność z protokołem Amnezia</string>
     <string name="exclude_lan">Wyklucz LAN</string>
     <string name="include_lan">Uwzględnij LAN</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
-    <string name="hide_amnezia_properties">Ukryj właściwości protokołu Amnezia</string>
     <string name="tunnel_control">Kontrola tunelu</string>
     <string name="auto_tunnel">Autotunel</string>
     <string name="multiple">Wiele</string>
@@ -181,7 +168,6 @@
     <string name="enable_remote_app_control">Włącz zdalne sterowanie aplikacją</string>
     <string name="add_tunnel">Dodaj tunel</string>
     <string name="select">Wybierz</string>
-    <string name="export_tunnels_amnezia">Eksportuj tunele jako Amnezia</string>
     <string name="dns_resolve_error">Rozwiązywanie DNS się nie powiodło</string>
     <string name="nothing_here_yet">Jeszcze nic tu nie ma!</string>
     <string name="select_all">Wybierz wszystkie</string>
@@ -204,7 +190,6 @@
     <string name="darker">Ciemniejszy</string>
     <string name="amoled">AMOLED</string>
     <string name="show_qr">Pokaż kod QR</string>
-    <string name="amnezia">Amnezia</string>
     <string name="wireguard">WireGuard</string>
     <string name="done">Gotowe</string>
     <string name="current_template">Bieżące: %1$s</string>
@@ -304,9 +289,6 @@
     <string name="password_no_spaces">Hasło nie może zawierać spacji.</string>
     <string name="tunnel_name_taken">Nazwa tunelu jest już używana.</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">Imituj QUIC</string>
-    <string name="mimic_dns">Imituj DNS</string>
-    <string name="mimic_sip">Imituj SIP</string>
     <string name="ddns_auto_update">Automatyczna aktualizacja dynamicznego DNS</string>
     <string name="ddns_auto_update_description">Automatyczna aktualizacja adresu IP po zmianach DDNS</string>
     <string name="prefer_ipv6_resolution">Preferuj rozwiązywanie peerów IPv6</string>
@@ -425,6 +407,4 @@
     <string name="website_url" translatable="false">https://wgtunnel.com</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Rozmiar śmieciowego pakietu transportu</string>
-    <string name="cookie_packet_junk_size">Rozmiar śmieciowego pakietu ciasteczka</string>
 </resources>

@@ -91,15 +91,6 @@
     <string name="settings">Settings</string>
     <string name="support">Support</string>
     <string name="kernel">Kernel</string>
-    <string name="junk_packet_count">Junk packet count</string>
-    <string name="junk_packet_minimum_size">Junk packet minimum size</string>
-    <string name="junk_packet_maximum_size">Junk packet maximum size</string>
-    <string name="init_packet_junk_size">Init packet junk size</string>
-    <string name="response_packet_junk_size">Response packet junk size</string>
-    <string name="init_packet_magic_header">Init packet magic header</string>
-    <string name="response_packet_magic_header">Response packet magic header</string>
-    <string name="transport_packet_magic_header">Transport packet magic header</string>
-    <string name="underload_packet_magic_header">Underload packet magic header</string>
     <string name="unsure_how">if you are unsure how to proceed</string>
     <string name="see_the">See the</string>
     <string name="getting_started_guide">getting started guide</string>
@@ -109,7 +100,6 @@
     <string name="always_on_message">VPN connection permission has been denied. Please check the</string>
     <string name="always_on_message2">to make sure Always-on VPN is turned off for all other apps and try again</string>
     <string name="root_accepted">Root shell accepted</string>
-    <string name="show_amnezia_properties">Show Amnezia properties</string>
     <string name="never">Never</string>
     <string name="handshake">Last handshake</string>
     <string name="logs">Logs</string>
@@ -158,10 +148,7 @@
     <string name="quick_actions">Quick actions</string>
     <string name="advanced_settings">Advanced settings</string>
     <string name="debounce_delay">Debounce delay</string>
-    <string name="hide_amnezia_properties">Hide Amnezia properties</string>
     <string name="hide_scripts">Hide scripts</string>
-    <string name="enable_amnezia_compatibility">Enable Amnezia compatibility</string>
-    <string name="remove_amnezia_compatibility">Remove Amnezia compatibility</string>
     <string name="exclude_lan">Exclude LAN</string>
     <string name="include_lan">Include LAN</string>
     <string name="tunnel_control">Tunnel control</string>
@@ -180,7 +167,6 @@
     <string name="export_logs">Export stored logs</string>
     <string name="delete_logs">Delete and clear logs</string>
     <string name="copy">Copy</string>
-    <string name="export_tunnels_amnezia">Export tunnels as Amnezia</string>
     <string name="export_tunnels_wireguard">Export tunnels as WireGuard</string>
     <string name="delete">Delete</string>
     <string name="camera_permission_required">Camera permission required</string>
@@ -222,7 +208,6 @@
     <string name="darker">Darker</string>
     <string name="amoled">AMOLED</string>
     <string name="show_qr">Show QR</string>
-    <string name="amnezia">Amnezia</string>
     <string name="wireguard">WireGuard</string>
     <string name="done">Done</string>
     <string name="wifi_detection_method">Wi-Fi detection method</string>
@@ -328,9 +313,6 @@
     <string name="password_no_spaces">Password cannot have spaces.</string>
     <string name="tunnel_name_taken">Tunnel name is already used.</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">Mimic QUIC</string>
-    <string name="mimic_dns">Mimic DNS</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="active_tunnel_update_failed">Active tunnel update failed</string>
     <string name="ddns_auto_update">Dynamic DNS auto-update</string>
     <string name="ddns_auto_update_description">Auto-updates IP on DDNS changes</string>
@@ -442,25 +424,6 @@
     <string name="donation_prompt_prefix">Thanks for using WG Tunnel! If you are able, please consider</string>
     <string name="donation_prompt_link">supporting the project</string>
     <string name="donation_prompt_suffix">to keep it free and improving.</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="special_junk_packet">Special junk packet</string>
-    <string name="jc" translatable="false">Jc</string>
-    <string name="jmin" translatable="false">Jmin</string>
-    <string name="jmax" translatable="false">Jmax</string>
-    <string name="s1" translatable="false">S1</string>
-    <string name="s2" translatable="false">S2</string>
-    <string name="s3" translatable="false">S3</string>
-    <string name="s4" translatable="false">S4</string>
-    <string name="h1" translatable="false">H1</string>
-    <string name="h2" translatable="false">H2</string>
-    <string name="h3" translatable="false">H3</string>
-    <string name="h4" translatable="false">H4</string>
-    <string name="i1" translatable="false">I1</string>
-    <string name="i2" translatable="false">I2</string>
-    <string name="i3" translatable="false">I3</string>
-    <string name="i4" translatable="false">I4</string>
-    <string name="i5" translatable="false">I5</string>
     <string name="copy_from">Copy from</string>
     <string name="mode">Mode</string>
     <string name="app_selection">App selection</string>

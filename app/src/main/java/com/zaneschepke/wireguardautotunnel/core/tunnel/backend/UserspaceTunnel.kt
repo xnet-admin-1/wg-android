@@ -1,20 +1,18 @@
 package com.zaneschepke.wireguardautotunnel.core.tunnel.backend
 
+import com.wireguard.android.backend.Backend
+import com.wireguard.android.backend.BackendException
+import com.wireguard.android.backend.Tunnel
 import com.zaneschepke.wireguardautotunnel.domain.enums.BackendMode
 import com.zaneschepke.wireguardautotunnel.domain.enums.TunnelStatus
 import com.zaneschepke.wireguardautotunnel.domain.events.DnsFailure
 import com.zaneschepke.wireguardautotunnel.domain.events.InvalidConfig
-import com.zaneschepke.wireguardautotunnel.domain.events.ServiceNotRunning
 import com.zaneschepke.wireguardautotunnel.domain.events.UnknownError
-import com.zaneschepke.wireguardautotunnel.domain.events.VpnUnauthorized
 import com.zaneschepke.wireguardautotunnel.domain.model.TunnelConfig
-import com.zaneschepke.wireguardautotunnel.domain.state.AmneziaStatistics
 import com.zaneschepke.wireguardautotunnel.domain.state.TunnelStatistics
-import com.zaneschepke.wireguardautotunnel.util.extensions.asAmBackendMode
-import com.zaneschepke.wireguardautotunnel.util.extensions.asBackendMode
+import com.zaneschepke.wireguardautotunnel.domain.state.WireGuardStatistics
 import com.zaneschepke.wireguardautotunnel.util.extensions.asTunnelState
 import com.zaneschepke.wireguardautotunnel.util.extensions.toBackendCoreException
-import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.Channel
@@ -23,9 +21,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
-import org.amnezia.awg.backend.Backend
-import org.amnezia.awg.backend.BackendException
-import org.amnezia.awg.backend.Tunnel
 import timber.log.Timber
 
 class UserspaceTunnel(private val backend: Backend, private val runConfigHelper: RunConfigHelper) :
@@ -36,15 +31,15 @@ class UserspaceTunnel(private val backend: Backend, private val runConfigHelper:
     override fun tunnelStateFlow(tunnelConfig: TunnelConfig): Flow<TunnelStatus> = callbackFlow {
         val stateChannel = Channel<Tunnel.State>()
 
-        val runtimeTunnel = RuntimeAwgTunnel(tunnelConfig, stateChannel)
+        val runtimeTunnel = RuntimeWgTunnel(tunnelConfig, stateChannel)
         runtimeTunnels[tunnelConfig.id] = runtimeTunnel
 
         val consumerJob = launch {
-            stateChannel.consumeAsFlow().collect { awgState -> trySend(awgState.asTunnelState()) }
+            stateChannel.consumeAsFlow().collect { state -> trySend(state.asTunnelState()) }
         }
 
         try {
-            val runConfig = runConfigHelper.buildAmRunConfig(tunnelConfig)
+            val runConfig = runConfigHelper.buildWgRunConfig(tunnelConfig)
             backend.setState(runtimeTunnel, Tunnel.State.UP, runConfig)
         } catch (_: TimeoutCancellationException) {
             Timber.e("Startup timed out for ${tunnelConfig.name} (likely DNS hang)")
@@ -73,23 +68,15 @@ class UserspaceTunnel(private val backend: Backend, private val runConfigHelper:
     }
 
     override fun setBackendMode(backendMode: BackendMode) {
-        Timber.d("Setting backend mode: $backendMode")
-        try {
-            backend.backendMode = backendMode.asAmBackendMode()
-        } catch (e: BackendException) {
-            throw e.toBackendCoreException()
-        } catch (_: IOException) {
-            throw VpnUnauthorized()
-        }
+        Timber.w("setBackendMode not supported for userspace WireGuard backend")
     }
 
     override fun getBackendMode(): BackendMode {
-        return backend.backendMode.asBackendMode()
+        return BackendMode.Inactive
     }
 
     override fun handleDnsReresolve(tunnelConfig: TunnelConfig): Boolean {
-        val tunnel = runtimeTunnels[tunnelConfig.id] ?: throw ServiceNotRunning()
-        return backend.resolveDDNS(tunnelConfig.toAmConfig(), tunnel.isIpv4ResolutionPreferred)
+        throw NotImplementedError()
     }
 
     override suspend fun runningTunnelNames(): Set<String> {
@@ -99,7 +86,7 @@ class UserspaceTunnel(private val backend: Backend, private val runConfigHelper:
     override fun getStatistics(tunnelId: Int): TunnelStatistics? {
         return try {
             val runtimeTunnel = runtimeTunnels[tunnelId] ?: return null
-            AmneziaStatistics(backend.getStatistics(runtimeTunnel))
+            WireGuardStatistics(backend.getStatistics(runtimeTunnel))
         } catch (e: Exception) {
             Timber.e(e, "Failed to get stats for $tunnelId")
             null

@@ -20,7 +20,6 @@
     <string name="use_android_recommended">Use Android\'s recommended method for getting Wi-Fi information, based on Android version</string>
     <string name="dual_stack">Dual-stack</string>
     <string name="missing_attribute">Missing attribute</string>
-    <string name="hide_amnezia_properties">Hide Amnezia properties</string>
     <string name="advanced_settings">Advanced settings</string>
     <string name="kernel_name_dots">Tunnel name cannot be \'.\' or \'..\' in kernel mode</string>
     <string name="auto_tunnel_channel_name">Auto-tunnel Notification Channel</string>
@@ -53,18 +52,15 @@
     <string name="allow_lan_traffic">Allow LAN traffic</string>
     <string name="quick_actions">Quick actions</string>
     <string name="google_donation_message">Unfortunately, due to Google\'s policies, donation links are not allowed in the Play Store version of this app. Please browse the project\'s webpages to find where to donate.</string>
-    <string name="response_packet_magic_header">Response packet magic header</string>
     <string name="tunnel_monitoring">Tunnel monitoring</string>
     <string name="primary_tunnel">Default tunnel</string>
     <string name="create_pin">Create PIN</string>
     <string name="licenses">Licenses</string>
     <string name="http_bind_address">HTTP bind address</string>
     <string name="vpn_channel_description">A channel for VPN state notifications</string>
-    <string name="amnezia">Amnezia</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="tunnel_name_taken">Tunnel name is already used.</string>
     <string name="check_for_update">Check for update</string>
-    <string name="mimic_dns">Mimic DNS</string>
     <string name="unknown_attribute">Unknown attribute</string>
     <string name="donation_prompt_prefix">Thanks for using WG Tunnel! If you can, please consider</string>
     <string name="hint_template">(%1$s)</string>
@@ -72,14 +68,12 @@
     <string name="kernel">Kernel</string>
     <string name="peer">Peer</string>
     <string name="auto_tunneling">Auto-tunneling</string>
-    <string name="init_packet_magic_header">Init packet magic header</string>
     <string name="socks_5_bind_address">SOCKS5 bind address</string>
     <string name="root_required_template">%1$s (root required)</string>
     <string name="tunnel_control">Tunnel control</string>
     <string name="website">App website</string>
     <string name="mobile_tunnel">Mobile data tunnel</string>
     <string name="error_no_file_explorer">No file explorer installed</string>
-    <string name="mimic_quic">Mimic QUIC</string>
     <string name="auto_tunnel_channel_description">A channel for auto-tunnel state notifications</string>
     <string name="show_qr">Show QR</string>
     <string name="wifi_settings">Wi-Fi settings</string>
@@ -95,7 +89,6 @@
     <string name="exclude">Exclude</string>
     <string name="backup_failed">Failed to create backup.</string>
     <string name="unknown_section">Unknown section</string>
-    <string name="junk_packet_minimum_size">Junk packet minimum size</string>
     <string name="location_services_not_detected">Location services not detected</string>
     <string name="all">All</string>
     <string name="location_permissions">Location Permissions</string>
@@ -114,7 +107,6 @@
     <string name="launch_app_settings">Launch app settings</string>
     <string name="ddns_auto_update_description">Auto-updates IP on DDNS changes</string>
     <string name="copy">Copy</string>
-    <string name="show_amnezia_properties">Show Amnezia properties</string>
     <string name="legacy">Legacy</string>
     <string name="preshared_key">Pre-shared key</string>
     <string name="include">Include</string>
@@ -164,9 +156,7 @@
     <string name="donate_title">Donate</string>
     <string name="endpoint">Endpoint</string>
     <string name="active_tunnel_update_failed">Active tunnel update failed</string>
-    <string name="response_packet_junk_size">Response packet junk size</string>
     <string name="start">Start</string>
-    <string name="enable_amnezia_compatibility">Enable Amnezia compatibility</string>
     <string name="nothing_here_yet">Nothing here yet!</string>
     <string name="mode_disabled_template">Feature unavailable in %1$s mode.</string>
     <string name="dns_servers">DNS servers</string>
@@ -212,12 +202,10 @@
     <string name="skip">Skip</string>
     <string name="post_down">Post down</string>
     <string name="restore_application">Restore from backup</string>
-    <string name="junk_packet_count">Junk packet count</string>
     <string name="base64_key">Base64 key</string>
     <string name="download">Download</string>
     <string name="show_password">Show password</string>
     <string name="proxy_credentials">Proxy credentials</string>
-    <string name="transport_packet_magic_header">Transport packet magic header</string>
     <string name="unknown_error">Unknown error occurred</string>
     <string name="download_and_install">Download and Install</string>
     <string name="vpn_settings">VPN system settings</string>
@@ -237,7 +225,6 @@
     <string name="legacy_api_description">Use an Android 12 deprecated method for getting Wi-Fi information that limits location queries, but may not work reliably on newer devices</string>
     <string name="active">Active</string>
     <string name="security_type">Security:</string>
-    <string name="export_tunnels_amnezia">Export tunnels as Amnezia</string>
     <string name="bounce_failed_template">Pinger failed to recovery tunnel with error: %1$s</string>
     <string name="ddns_success_message">Dynamic DNS endpoint successfully updated.</string>
     <string name="addresses">Addresses</string>
@@ -273,7 +260,6 @@
     <string name="restore_failed">Failed to restore from backup.</string>
     <string name="auto_tunnel_title">Auto-tunnel service</string>
     <string name="move_down">Move Down</string>
-    <string name="remove_amnezia_compatibility">Remove Amnezia compatibility</string>
     <string name="open_issue">Open an issue</string>
     <string name="random">(random)</string>
     <string name="backup_application">Backup application data</string>
@@ -306,7 +292,6 @@
     <string name="create_import">Create from scratch</string>
     <string name="_false">False</string>
     <string name="config_error">Invalid config</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="update_check_unsupported">Update check is not supported for this build type.</string>
     <string name="optional">(optional)</string>
     <string name="expiremental_template">%1$s (experimental)</string>
@@ -321,7 +306,6 @@
     <string name="enabled_app_shortcuts">Enable app shortcuts</string>
     <string name="preferred_tunnel">Preferred tunnel</string>
     <string name="allow">Allow</string>
-    <string name="underload_packet_magic_header">Underload packet magic header</string>
     <string name="vpn_off">VPN off</string>
     <string name="latest_installed">You are already running the latest version.</string>
     <string name="add_wifi_name">Add Wi-Fi name</string>
@@ -347,7 +331,6 @@
     <string name="preferred_tunnel_label">Preferred tunnel:</string>
     <string name="dns_settings">DNS settings</string>
     <string name="always_on_vpn_support">Allow Always-On VPN</string>
-    <string name="junk_packet_maximum_size">Junk packet maximum size</string>
     <string name="_default">Default</string>
     <string name="exclude_lan">Exclude LAN</string>
     <string name="ping_monitor">Ping monitor</string>
@@ -363,7 +346,6 @@
     <string name="restart_message_template">Saving changes will cause the %1$s to restart, do you wish to continue?</string>
     <string name="already_donated_description">Disables future donation prompts</string>
     <string name="add_from_url">Add from URL</string>
-    <string name="init_packet_junk_size">Init packet junk size</string>
     <string name="location_permissions_missing">Location permissions missing</string>
     <string name="metered_tunnel">Metered tunnel</string>
     <string name="stop_auto">Stop auto-tunnel</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

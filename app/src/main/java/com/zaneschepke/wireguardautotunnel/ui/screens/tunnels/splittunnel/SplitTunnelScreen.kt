@@ -46,7 +46,7 @@ fun SplitTunnelScreen(
 
     var effectiveTunnel by remember { mutableStateOf(tunnel) }
 
-    val conf by remember(effectiveTunnel) { derivedStateOf { effectiveTunnel.toAmConfig() } }
+    val conf by remember(effectiveTunnel) { derivedStateOf { effectiveTunnel.toWgConfig() } }
 
     var splitConfig by
         remember(conf) {

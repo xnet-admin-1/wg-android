@@ -33,31 +33,12 @@ fun InterfaceSection(
     isTunnelNameTaken: Boolean,
     onInterfaceChange: (InterfaceProxy) -> Unit,
     onTunnelNameChange: (String) -> Unit,
-    onMimicQuic: () -> Unit,
-    onMimicDns: () -> Unit,
-    onMimicSip: () -> Unit,
 ) {
     val isTv = LocalIsAndroidTV.current
-    var showAmneziaValues by rememberSaveable {
-        mutableStateOf(configProxy.`interface`.isAmneziaEnabled())
-    }
     var showPrivateKey by rememberSaveable { mutableStateOf(false) }
 
     var showScripts by rememberSaveable { mutableStateOf(configProxy.hasScripts()) }
     var isDropDownExpanded by rememberSaveable { mutableStateOf(false) }
-    val isAmneziaCompatibilitySet =
-        remember(configProxy.`interface`) {
-            configProxy.`interface`.isAmneziaCompatibilityModeSet()
-        }
-
-    fun toggleAmneziaCompat() {
-        val (show, interfaceProxy) =
-            if (configProxy.`interface`.isAmneziaCompatibilityModeSet()) {
-                Pair(false, configProxy.`interface`.resetAmneziaProperties())
-            } else Pair(true, configProxy.`interface`.toAmneziaCompatibilityConfig())
-        showAmneziaValues = show
-        onInterfaceChange(interfaceProxy)
-    }
 
     Surface(color = MaterialTheme.colorScheme.surface) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -103,23 +84,7 @@ fun InterfaceSection(
                             expanded = isDropDownExpanded,
                             onExpandedChange = { isDropDownExpanded = it },
                             showScripts = showScripts,
-                            showAmneziaValues = showAmneziaValues,
-                            isAmneziaCompatibilitySet = isAmneziaCompatibilitySet,
                             onToggleScripts = { showScripts = !showScripts },
-                            onToggleAmneziaValues = { showAmneziaValues = !showAmneziaValues },
-                            onToggleAmneziaCompatibility = { toggleAmneziaCompat() },
-                            onMimicQuic = {
-                                showAmneziaValues = true
-                                onMimicQuic()
-                            },
-                            onMimicDns = {
-                                showAmneziaValues = true
-                                onMimicDns()
-                            },
-                            onMimicSip = {
-                                showAmneziaValues = true
-                                onMimicSip()
-                            },
                         )
                     }
             }
@@ -154,7 +119,6 @@ fun InterfaceSection(
                     isGlobalConfig,
                     interfaceState = configProxy.`interface`,
                     showScripts = showScripts,
-                    showAmneziaValues = showAmneziaValues,
                     onInterfaceChange = onInterfaceChange,
                     showPrivateKey,
                 )

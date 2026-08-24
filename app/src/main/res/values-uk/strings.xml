@@ -19,7 +19,6 @@
     <string name="email_chooser">Надіслати E-Mail…</string>
     <string name="error_root_denied">Root доступ заборонено</string>
     <string name="incorrect_pin">Невірний PIN-код</string>
-    <string name="transport_packet_magic_header">Заголовок транспортного пакету</string>
     <string name="getting_started_guide">інструкція щодо початку роботи</string>
     <string name="vpn_channel_name">Канал сповіщення VPN</string>
     <string name="error_file_extension">Файл не є .conf або .zip файлом</string>
@@ -77,20 +76,11 @@
     <string name="support">Підтримка</string>
     <string name="settings">Налаштування</string>
     <string name="kernel">Модуль ядра</string>
-    <string name="junk_packet_count">Кількість «сміттєвих» пакетів</string>
-    <string name="junk_packet_minimum_size">Мінімальний розмір «сміттєвого» пакету</string>
-    <string name="junk_packet_maximum_size">Максимальний розмір «сміттєвого» пакету</string>
-    <string name="init_packet_junk_size">Початковий розмір «сміттєвого» пакету</string>
-    <string name="response_packet_junk_size">Розмір відповіді «сміттєвого» пакету</string>
-    <string name="init_packet_magic_header">Заголовок пакету ініціалізації</string>
-    <string name="underload_packet_magic_header">Заголовок пакету під навантаженням</string>
-    <string name="response_packet_magic_header">Заголовок пакету відповіді</string>
     <string name="unsure_how">, якщо не впевнені що робити далі</string>
     <string name="see_the">Дивіться</string>
     <string name="skip">Пропустити</string>
     <string name="trusted_wifi_names">Довірені мережі Wi-Fi</string>
     <string name="vpn_denied_dialog_title">Немає дозволу</string>
-    <string name="show_amnezia_properties">Показати налаштування Amnezia</string>
     <string name="handshake">з\'єднання</string>
     <string name="notifications">Сповіщення</string>
     <string name="light">Світла</string>
@@ -135,9 +125,7 @@
     <string name="pre_down">До деактивації</string>
     <string name="post_down">Після деактивації</string>
     <string name="debounce_delay">Затримка відбою</string>
-    <string name="hide_amnezia_properties">Приховати налаштування Amnezia</string>
     <string name="hide_scripts">Приховати сценарії</string>
-    <string name="remove_amnezia_compatibility">Вимкнути сумісність з Amnezia</string>
     <string name="exclude_lan">Виключити LAN</string>
     <string name="include_lan">Увімкнути LAN</string>
     <string name="tunnel_control">Управління тунелем</string>
@@ -148,7 +136,6 @@
     <string name="stop_on_internet_loss">Зупинити тунель під час втрати інтернету</string>
     <string name="ethernet_tunnel">Тунель для Ethernet</string>
     <string name="vpn_channel_description">Канал сповіщень про стан VPN</string>
-    <string name="enable_amnezia_compatibility">Включити сумісність із Amnezia</string>
     <string name="multiple">Декілька</string>
     <string name="enter_config_url">Enter config URL</string>
     <string name="use_android_recommended">Use Android\'s recommended method for getting Wi-Fi information, based on Android version</string>
@@ -174,18 +161,15 @@
     <string name="tunnel_monitoring">Tunnel monitoring</string>
     <string name="licenses">Licenses</string>
     <string name="http_bind_address">HTTP bind address</string>
-    <string name="amnezia">Amnezia</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="tunnel_name_taken">Tunnel name is already used.</string>
     <string name="check_for_update">Check for update</string>
-    <string name="mimic_dns">Mimic DNS</string>
     <string name="unknown_attribute">Unknown attribute</string>
     <string name="donation_prompt_prefix">Thanks for using WG Tunnel! If you can, please consider</string>
     <string name="hint_template">(%1$s)</string>
     <string name="socks_5_bind_address">SOCKS5 bind address</string>
     <string name="root_required_template">%1$s (root required)</string>
     <string name="website">App website</string>
-    <string name="mimic_quic">Mimic QUIC</string>
     <string name="show_qr">Show QR</string>
     <string name="wifi_settings">Wi-Fi settings</string>
     <string name="tunnel_starting">Tunnel starting</string>
@@ -285,7 +269,6 @@
     <string name="legacy_api_description">Use an Android 12 deprecated method for getting Wi-Fi information that limits location queries, but may not work reliably on newer devices</string>
     <string name="active">Active</string>
     <string name="security_type">Security:</string>
-    <string name="export_tunnels_amnezia">Export tunnels as Amnezia</string>
     <string name="bounce_failed_template">Pinger failed to recovery tunnel with error: %1$s</string>
     <string name="ddns_success_message">Dynamic DNS endpoint successfully updated.</string>
     <string name="add_tunnel">Add tunnel</string>
@@ -333,7 +316,6 @@
     <string name="_continue">Continue</string>
     <string name="_false">False</string>
     <string name="config_error">Invalid config</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="update_check_unsupported">Update check is not supported for this build type.</string>
     <string name="expiremental_template">%1$s (experimental)</string>
     <string name="display_detailed_ping_stats">Display detailed ping stats</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

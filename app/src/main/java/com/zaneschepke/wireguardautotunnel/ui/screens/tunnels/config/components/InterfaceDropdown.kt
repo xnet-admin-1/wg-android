@@ -17,14 +17,7 @@ fun InterfaceDropdown(
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     showScripts: Boolean,
-    showAmneziaValues: Boolean,
-    isAmneziaCompatibilitySet: Boolean,
     onToggleScripts: () -> Unit,
-    onToggleAmneziaValues: () -> Unit,
-    onToggleAmneziaCompatibility: () -> Unit,
-    onMimicQuic: () -> Unit,
-    onMimicDns: () -> Unit,
-    onMimicSip: () -> Unit,
 ) {
     Column {
         IconButton(onClick = { onExpandedChange(true) }) {
@@ -47,52 +40,6 @@ fun InterfaceDropdown(
                 },
                 onClick = {
                     onToggleScripts()
-                    onExpandedChange(false)
-                },
-            )
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        if (showAmneziaValues) stringResource(R.string.hide_amnezia_properties)
-                        else stringResource(R.string.show_amnezia_properties)
-                    )
-                },
-                onClick = {
-                    onToggleAmneziaValues()
-                    onExpandedChange(false)
-                },
-            )
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        if (isAmneziaCompatibilitySet)
-                            stringResource(R.string.remove_amnezia_compatibility)
-                        else stringResource(R.string.enable_amnezia_compatibility)
-                    )
-                },
-                onClick = {
-                    onToggleAmneziaCompatibility()
-                    onExpandedChange(false)
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.mimic_quic)) },
-                onClick = {
-                    onMimicQuic()
-                    onExpandedChange(false)
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.mimic_dns)) },
-                onClick = {
-                    onMimicDns()
-                    onExpandedChange(false)
-                },
-            )
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.mimic_sip)) },
-                onClick = {
-                    onMimicSip()
                     onExpandedChange(false)
                 },
             )

@@ -64,7 +64,6 @@ class TunnelManager(
     kernelBackend: TunnelBackend,
     userspaceBackend: TunnelBackend,
     proxyUserspaceBackend: TunnelBackend,
-    private val userspaceAmBackend: org.amnezia.awg.backend.Backend,
     networkMonitor: NetworkMonitor,
     networkUtils: NetworkUtils,
     powerManager: PowerManager,

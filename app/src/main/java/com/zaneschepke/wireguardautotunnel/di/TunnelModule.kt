@@ -1,5 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.di
 
+import com.wireguard.android.backend.GoBackend
 import com.wireguard.android.backend.WgQuickBackend
 import com.wireguard.android.util.RootShell
 import com.wireguard.android.util.ToolsInstaller
@@ -7,6 +8,8 @@ import com.zaneschepke.networkmonitor.AndroidNetworkMonitor
 import com.zaneschepke.networkmonitor.NetworkMonitor
 import com.zaneschepke.wireguardautotunnel.core.tunnel.TunnelManager
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.KernelTunnel
+import com.wireguard.android.backend.Backend
+import com.wireguard.android.backend.RootTunnelActionHandler
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.RunConfigHelper
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.TunnelBackend
 import com.zaneschepke.wireguardautotunnel.core.tunnel.backend.UserspaceTunnel
@@ -16,10 +19,6 @@ import com.zaneschepke.wireguardautotunnel.util.extensions.to
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
-import org.amnezia.awg.backend.Backend
-import org.amnezia.awg.backend.GoBackend
-import org.amnezia.awg.backend.ProxyGoBackend
-import org.amnezia.awg.backend.RootTunnelActionHandler
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
@@ -36,30 +35,30 @@ val tunnelModule = module {
     single<Backend>(named(Core.USERSPACE)) {
         GoBackend(
             androidContext(),
-            RootTunnelActionHandler(org.amnezia.awg.util.RootShell(androidContext())),
+            RootTunnelActionHandler(RootShell(androidContext())),
         )
     }
 
     single<Backend>(named(Core.PROXY_USERSPACE)) {
-        ProxyGoBackend(
+        GoBackend(
             androidContext(),
-            RootTunnelActionHandler(org.amnezia.awg.util.RootShell(androidContext())),
+            RootTunnelActionHandler(RootShell(androidContext())),
         )
     }
 
-    single<com.wireguard.android.backend.Backend> {
+    single<Backend>(named(Core.KERNEL)) {
         val shell = get<RootShell>(named(Shell.TUNNEL))
         WgQuickBackend(
                 androidContext(),
                 shell,
                 ToolsInstaller(androidContext(), shell),
-                com.wireguard.android.backend.RootTunnelActionHandler(shell),
+                RootTunnelActionHandler(shell),
             )
             .apply { setMultipleTunnels(true) }
     }
 
     single<TunnelBackend>(named(Core.KERNEL)) {
-        KernelTunnel(get(), get<com.wireguard.android.backend.Backend>())
+        KernelTunnel(get(), get<Backend>(named(Core.KERNEL)))
     }
 
     single<TunnelBackend>(qualifier = named(Core.USERSPACE)) {
@@ -91,7 +90,6 @@ val tunnelModule = module {
             get(named(Core.KERNEL)),
             get(named(Core.USERSPACE)),
             get(named(Core.PROXY_USERSPACE)),
-            get<Backend>(named(Core.USERSPACE)),
             get(),
             get(),
             get(),

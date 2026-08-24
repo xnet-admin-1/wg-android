@@ -29,8 +29,8 @@ android {
         abi {
             isEnable = !project.hasProperty("noSplits")
             reset()
-            include("armeabi-v7a", "arm64-v8a")
-            isUniversalApk = !project.hasProperty("noSplits")
+            include("arm64-v8a")
+            isUniversalApk = false
         }
     }
 

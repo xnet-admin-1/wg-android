@@ -36,11 +36,6 @@
     <string name="create_pin">Vytvořte PIN</string>
     <string name="set_primary_tunnel">Tunel použitý, když není nakonfigurován žádný preferovaný tunel</string>
     <string name="edit_tunnel">Upravit tunel</string>
-    <string name="junk_packet_count">Junk packet počet</string>
-    <string name="junk_packet_minimum_size">Junk packet minimální velikost</string>
-    <string name="junk_packet_maximum_size">Junk packet maximální velikost</string>
-    <string name="init_packet_junk_size">Init packet junk velikost</string>
-    <string name="response_packet_junk_size">Response packet junk velikost</string>
     <string name="unsure_how">pokud si nejste jisti, jak postupovat</string>
     <string name="see_the">Podívejte se na</string>
     <string name="getting_started_guide">začátečnickou příručku</string>
@@ -80,7 +75,6 @@
     <string name="kernel">Kernel</string>
     <string name="persistent_keepalive">Udržování spojení</string>
     <string name="restart_at_boot">Spustit při startu systému</string>
-    <string name="show_amnezia_properties">Zobrazit Amnezia možnosti</string>
     <string name="language">Jazyk</string>
     <string name="light">Světlé</string>
     <string name="appearance">Vzhled</string>
@@ -106,14 +100,9 @@
     <string name="bypass_lan_for_kill_switch">Obejít LAN pro kill switch</string>
     <string name="hide_scripts">Skrýt skripty</string>
     <string name="quick_actions">Rychlé akce</string>
-    <string name="hide_amnezia_properties">Skrýt Amnezia vlastnosti</string>
-    <string name="enable_amnezia_compatibility">Zapnout Amnezia kompatibilitu</string>
-    <string name="remove_amnezia_compatibility">Odebrat Amnezia kompatibilitu</string>
     <string name="exclude_lan">Vyloučit LAN</string>
     <string name="tunnel_control">Ovládání tunelu</string>
     <string name="auto_tunnel">Auto-tunel</string>
-    <string name="init_packet_magic_header">Init packet magic header</string>
-    <string name="response_packet_magic_header">Response packet magic header</string>
     <string name="trusted_wifi_names">Důvěryhodné názvy Wi-Fi</string>
     <string name="advanced_settings">Rozšířené nastavení</string>
     <string name="include_lan">Zahrnout LAN</string>
@@ -122,8 +111,6 @@
     <string name="show_scripts">Zobrazit skripty</string>
     <string name="splt_tunneling">Dělené tunelování</string>
     <string name="auto_tunnel_channel_description">Kanál pro oznámení o stavu auto-tunelu</string>
-    <string name="transport_packet_magic_header">Transport packet magic header</string>
-    <string name="underload_packet_magic_header">Underload packet magic header</string>
     <string name="peer">Peer</string>
     <string name="vpn_settings">Systémové nastavení VPN</string>
     <string name="never">Nikdy</string>
@@ -182,7 +169,6 @@
     <string name="export_failed">Export se nezdařil</string>
     <string name="delete">Smazat</string>
     <string name="export_tunnels_wireguard">Exportovat tunely jako WireGuard</string>
-    <string name="export_tunnels_amnezia">Exportovat tunely jako Amnezia</string>
     <string name="remote_key_template">Klíč: %1$s</string>
     <string name="active">Aktivní</string>
     <string name="service_running_error">Služba není spuštěna</string>
@@ -203,7 +189,6 @@
     <string name="flavor_template">Varianta: %1$s</string>
     <string name="done">Hotovo</string>
     <string name="wireguard">WireGuard</string>
-    <string name="amnezia">Amnezia</string>
     <string name="show_qr">Zobrazit QR kód</string>
     <string name="current_template">Aktuální: %1$s</string>
     <string name="wifi_detection_method">Metoda detekce Wi-Fi</string>
@@ -278,9 +263,6 @@
     <string name="password_no_spaces">Heslo nesmí obsahovat mezery.</string>
     <string name="tunnel_name_taken">Název tunelu je již použit.</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">Napodobit QUIC</string>
-    <string name="mimic_dns">Napodobit DNS</string>
-    <string name="mimic_sip">Napodobit SIP</string>
     <string name="active_tunnel_update_failed">Aktualizace aktivního tunelu se nezdařila</string>
     <string name="ddns_auto_update">Automatická aktualizace dynamického DNS</string>
     <string name="ddns_auto_update_description">Automatická aktualizace IP adresy při změně DDNS</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk velikost</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk velikost</string>
 </resources>

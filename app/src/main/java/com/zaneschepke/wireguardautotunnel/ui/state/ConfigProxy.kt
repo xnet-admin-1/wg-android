@@ -1,6 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.ui.state
 
-import org.amnezia.awg.config.Config
+import com.wireguard.config.Config
 
 data class ConfigProxy(
     val peers: List<PeerProxy> = emptyList(),
@@ -14,28 +14,20 @@ data class ConfigProxy(
             `interface`.postDown.isNotBlank()
     }
 
-    fun buildConfigs(): Pair<com.wireguard.config.Config, Config> {
-        return Pair(
-            com.wireguard.config.Config.Builder()
-                .apply {
-                    addPeers(peers.map { it.toWgPeer() })
-                    setInterface(`interface`.toWgInterface())
-                }
-                .build(),
-            Config.Builder()
-                .apply {
-                    addPeers(peers.map { it.toAmPeer() })
-                    setInterface(`interface`.toAmInterface())
-                }
-                .build(),
-        )
+    fun buildWgConfig(): Config {
+        return Config.Builder()
+            .apply {
+                addPeers(peers.map { it.toWgPeer() })
+                setInterface(`interface`.toWgInterface())
+            }
+            .build()
     }
 
     companion object {
-        fun from(amConfig: Config): ConfigProxy {
+        fun from(config: Config): ConfigProxy {
             return ConfigProxy(
-                `interface` = InterfaceProxy.from(amConfig.`interface`),
-                peers = amConfig.peers.map { PeerProxy.from(it) },
+                `interface` = InterfaceProxy.from(config.`interface`),
+                peers = config.peers.map { PeerProxy.from(it) },
             )
         }
     }

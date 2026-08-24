@@ -48,9 +48,6 @@
     <string name="open_issue">Open een melding</string>
     <string name="create_pin">Stel PIN in</string>
     <string name="enable_app_lock">Schakel app-lock in</string>
-    <string name="init_packet_junk_size">Initiële junk packet grootte</string>
-    <string name="junk_packet_maximum_size">Junk packet maximum grootte</string>
-    <string name="response_packet_junk_size">Response junk packet grootte</string>
     <string name="delete_tunnel_message">Weet je zeker dat je deze tunnel wil verwijderen?</string>
     <string name="yes">Ja</string>
     <string name="no_email_detected">Geen email app gevonden</string>
@@ -59,17 +56,14 @@
     <string name="edit_tunnel">Tunnel bewerken</string>
     <string name="settings">Instellingen</string>
     <string name="support">Ondersteuning</string>
-    <string name="junk_packet_minimum_size">Junk packet minimum grootte</string>
     <string name="all">alle</string>
     <string name="no_browser_detected">Geen browser gevonden</string>
     <string name="kernel">Kernel</string>
     <string name="delete_tunnel">Tunnel verwijderen</string>
-    <string name="junk_packet_count">Junk packetteller</string>
     <string name="incorrect_pin">Foutieve PIN</string>
     <string name="enter_pin">Vul PIN in</string>
     <string name="pin_created">PIN aangemaakt</string>
     <string name="add_peer">Peer toevoegen</string>
-    <string name="init_packet_magic_header">Initiële packet magic header</string>
     <string name="prominent_background_location_title">Achtergrondlocatievrijgave</string>
     <string name="unknown_error">Onbekende fout opgetreden</string>
     <string name="email_subject">WG Tunnel ondersteuning</string>
@@ -79,13 +73,10 @@
     <string name="error_root_denied">Root toegang geweigerd</string>
     <string name="tunnel_on_wifi">Tunnelen bij onvertrouwde WiFi</string>
     <string name="error_no_file_explorer">Geen bestandsverkenner geïnstalleerd</string>
-    <string name="response_packet_magic_header">Response packet magic header</string>
-    <string name="underload_packet_magic_header">Underload packet magic header</string>
     <string name="unsure_how">als je niet weet hoe verder te gaan</string>
     <string name="restart_at_boot">Herstart na systeemstart</string>
     <string name="always_on_message">VPN verbindingstoegang geweigerd. Controleer aub de</string>
     <string name="always_on_message2">om zeker te zijn dat Altijd-aan VPN is uitgeschakeld voor alle andere apps, en probeer dan opnieuw</string>
-    <string name="show_amnezia_properties">Amnezia instellingen weergeven</string>
     <string name="never">nooit</string>
     <string name="handshake">handshake</string>
     <string name="logs">Logboeken</string>
@@ -96,7 +87,6 @@
     <string name="vpn_settings">VPN systeeminstellingen</string>
     <string name="root_accepted">Root toegang verleend</string>
     <string name="prominent_background_location_message">Deze functie vereist locatierechten om het WiFi SSID te kunnen bepalen. Ook als de applicatie is gesloten. Lees het privacybeleid op het scherm Ondersteuning voor meer informatie.</string>
-    <string name="transport_packet_magic_header">Transport packet magic header</string>
     <string name="appearance">Uiterlijk</string>
     <string name="light">Licht</string>
     <string name="dynamic">Dynamisch</string>
@@ -111,14 +101,11 @@
     <string name="stop">Stop</string>
     <string name="splt_tunneling">Gesplitste tunneling</string>
     <string name="advanced_settings">Geavanceerde instellingen</string>
-    <string name="hide_amnezia_properties">Amnezia eigenschappen verbergen</string>
     <string name="hide_scripts">Scripts verbergen</string>
-    <string name="remove_amnezia_compatibility">Amnezia compatibiliteit verwijderen</string>
     <string name="add_from_clipboard">Toevoegen van klembord</string>
     <string name="show_scripts">Toon scripts</string>
     <string name="auto_tunnel_channel_name">Auto-tunnel Notificatie Kanaal</string>
     <string name="auto_tunnel_channel_description">Een kanaal voor auto-tunnel status notificaties</string>
-    <string name="enable_amnezia_compatibility">Amnezia compatibiliteit inschakelen</string>
     <string name="add_from_url">Toevoegen met link</string>
     <string name="stop_on_no_internet">Stoppen wanneer geen internet</string>
     <string name="stop_on_internet_loss">Stop tunnel bij verlies van internet</string>
@@ -145,7 +132,6 @@
     <string name="darker">Donkerder</string>
     <string name="amoled">AMOLED</string>
     <string name="show_qr">Toon QR Code</string>
-    <string name="amnezia">Amnezia</string>
     <string name="wireguard">WireGuard</string>
     <string name="done">Klaar</string>
     <string name="wifi_detection_method">Wi-Fi detectie methode</string>
@@ -207,7 +193,6 @@
     <string name="export_logs">Exporteer bewaarde logs</string>
     <string name="delete_logs">Verwijder en maak logs leeg</string>
     <string name="copy">Kopieer</string>
-    <string name="export_tunnels_amnezia">Exporteer tunnels als Amnezia</string>
     <string name="export_tunnels_wireguard">Exporteer tunnels als WireGuard</string>
     <string name="delete">Verwijder</string>
     <string name="camera_permission_required">Kamera toestemming vereist</string>
@@ -249,14 +234,12 @@
     <string name="http_bind_address">HTTP bind adres</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="tunnel_name_taken">Tunnel name is already used.</string>
-    <string name="mimic_dns">Mimic DNS</string>
     <string name="unknown_attribute">Onbekend invoerveld</string>
     <string name="donation_prompt_prefix">Thanks for using WG Tunnel! If you can, please consider</string>
     <string name="hint_template">(%1$s)</string>
     <string name="socks_5_bind_address">SOCKS5 bind adres</string>
     <string name="root_required_template">%1$s (root vereist)</string>
     <string name="website">App website</string>
-    <string name="mimic_quic">Mimic QUIC</string>
     <string name="wifi_settings">Wi-Fi settings</string>
     <string name="backup_success">Backup succesvol. %1$s</string>
     <string name="invalid_value">Waarde niet geaccepteerd</string>
@@ -351,7 +334,6 @@
     <string name="kernel_name_special_characters">Tunnel name in kernel mode cannot have spaces or certain special characters (allowed: alphanumeric, _, =, +, ., -)</string>
     <string name="_continue">Continue</string>
     <string name="_false">Niet waar</string>
-    <string name="mimic_sip">Mimic SIP</string>
     <string name="expiremental_template">%1$s (experimenteel)</string>
     <string name="display_detailed_ping_stats">Laat gedetaileerde ping statistieken zien</string>
     <string name="unavailable_in_mode">Unavailable in current mode</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

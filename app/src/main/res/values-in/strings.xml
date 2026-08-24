@@ -3,7 +3,6 @@
     <string name="settings">Pengaturan</string>
     <string name="support">Dukungan</string>
     <string name="kernel">Kernel</string>
-    <string name="init_packet_junk_size">Ukuran sampah paket init</string>
     <string name="app_name">WG Tunnel</string>
     <string name="error_file_extension">File bukan berformat .conf atau .zip</string>
     <string name="no_tunnels">Belum ada terowongan yang ditambahkan!</string>
@@ -48,14 +47,6 @@
     <string name="pin_created">PIN berhasil dibuat</string>
     <string name="enter_pin">Masukkan PIN</string>
     <string name="edit_tunnel">Edit terowongan</string>
-    <string name="junk_packet_count">Jumlah paket sampah</string>
-    <string name="junk_packet_minimum_size">Ukuran minimum paket sampah</string>
-    <string name="junk_packet_maximum_size">Ukuran maksimum paket sampah</string>
-    <string name="response_packet_junk_size">Ukuran sampah paket respons</string>
-    <string name="init_packet_magic_header">Header ajaib paket init</string>
-    <string name="response_packet_magic_header">Header ajaib paket respons</string>
-    <string name="transport_packet_magic_header">Header ajaib paket transport</string>
-    <string name="underload_packet_magic_header">Header ajaib paket underload</string>
     <string name="unsure_how">jika Anda tidak yakin cara melanjutkan</string>
     <string name="see_the">Lihat</string>
     <string name="getting_started_guide">panduan memulai</string>
@@ -65,7 +56,6 @@
     <string name="always_on_message">Izin koneksi VPN telah ditolak. Silakan periksa</string>
     <string name="always_on_message2">untuk memastikan VPN Selalu Aktif dinonaktifkan untuk semua aplikasi lain dan coba lagi</string>
     <string name="root_accepted">Shell root diterima</string>
-    <string name="show_amnezia_properties">Tampilkan properti Amnezia</string>
     <string name="never">Tidak pernah</string>
     <string name="handshake">Jabat tangan terakhir</string>
     <string name="vpn_channel_name">Saluran Notifikasi VPN</string>
@@ -86,7 +76,6 @@
     <string name="use_android_recommended">Gunakan metode yang direkomendasikan Android untuk mendapatkan informasi Wi-Fi, berdasarkan versi Android</string>
     <string name="dual_stack">Dual-stack</string>
     <string name="missing_attribute">Atribut tidak ada</string>
-    <string name="hide_amnezia_properties">Sembunyikan properti Amnezia</string>
     <string name="advanced_settings">Pengaturan lanjutan</string>
     <string name="kernel_name_dots">Nama terowongan tidak boleh \'.\' atau \'..\' dalam mode kernel</string>
     <string name="auto_tunnel_channel_name">Saluran Notifikasi Terowongan Otomatis</string>
@@ -118,11 +107,9 @@
     <string name="licenses">Lisensi</string>
     <string name="http_bind_address">Alamat bind HTTP</string>
     <string name="vpn_channel_description">Saluran untuk notifikasi status VPN</string>
-    <string name="amnezia">Amnezia</string>
     <string name="tunnel_mapping_description">Petakan terowongan sebagai pilihan berdasarkan nama Wi-Fi</string>
     <string name="tunnel_name_taken">Nama terowongan sudah digunakan.</string>
     <string name="check_for_update">Periksa pembaruan</string>
-    <string name="mimic_dns">Tiru DNS</string>
     <string name="unknown_attribute">Atribut tidak dikenal</string>
     <string name="donation_prompt_prefix">Terima kasih telah menggunakan WG Tunnel! Jika memungkinkan, harap pertimbangkan untuk</string>
     <string name="hint_template">(%1$s)</string>
@@ -132,7 +119,6 @@
     <string name="tunnel_control">Kontrol terowongan</string>
     <string name="website">Situs web aplikasi</string>
     <string name="mobile_tunnel">Terowongan data seluler</string>
-    <string name="mimic_quic">Tiru QUIC</string>
     <string name="auto_tunnel_channel_description">Saluran untuk notifikasi status terowongan otomatis</string>
     <string name="show_qr">Tampilkan QR</string>
     <string name="wifi_settings">Pengaturan Wi-Fi</string>
@@ -201,7 +187,6 @@
     <string name="endpoint">Titik akhir</string>
     <string name="active_tunnel_update_failed">Pembaruan terowongan aktif gagal</string>
     <string name="start">Mulai</string>
-    <string name="enable_amnezia_compatibility">Aktifkan kompatibilitas Amnezia</string>
     <string name="nothing_here_yet">Belum ada apa pun di sini!</string>
     <string name="mode_disabled_template">Fitur tidak tersedia dalam mode %1$s.</string>
     <string name="dns_servers">Server DNS</string>
@@ -259,7 +244,6 @@
     <string name="legacy_api_description">Gunakan metode yang tidak lagi didukung sejak Android 12 untuk mendapatkan informasi Wi-Fi yang membatasi kueri lokasi, tetapi mungkin tidak bekerja secara andal pada perangkat yang lebih baru</string>
     <string name="active">Aktif</string>
     <string name="security_type">Keamanan:</string>
-    <string name="export_tunnels_amnezia">Ekspor terowongan sebagai Amnezia</string>
     <string name="bounce_failed_template">Pinger gagal memulihkan terowongan dengan kesalahan: %1$s</string>
     <string name="ddns_success_message">Titik akhir DNS dinamis berhasil diperbarui.</string>
     <string name="addresses">Alamat</string>
@@ -293,7 +277,6 @@
     <string name="reachable_template">Dapat dijangkau: %1$s</string>
     <string name="restore_failed">Gagal memulihkan dari cadangan.</string>
     <string name="move_down">Pindah ke Bawah</string>
-    <string name="remove_amnezia_compatibility">Hapus kompatibilitas Amnezia</string>
     <string name="backup_application">Cadangkan data aplikasi</string>
     <string name="remote_key_template">Kunci: %1$s</string>
     <string name="comma_separated">Dipisahkan dengan koma</string>
@@ -320,7 +303,6 @@
     <string name="_continue">Lanjutkan</string>
     <string name="_false">Salah</string>
     <string name="config_error">Konfigurasi tidak valid</string>
-    <string name="mimic_sip">Tiru SIP</string>
     <string name="update_check_unsupported">Pemeriksaan pembaruan tidak didukung untuk jenis build ini.</string>
     <string name="expiremental_template">%1$s (eksperimental)</string>
     <string name="display_detailed_ping_stats">Tampilkan statistik ping terperinci</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Ukuran sampah paket transport</string>
-    <string name="cookie_packet_junk_size">Ukuran sampah paket cookie</string>
 </resources>

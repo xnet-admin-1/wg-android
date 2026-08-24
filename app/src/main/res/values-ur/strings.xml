@@ -60,16 +60,11 @@
     <string name="pin_created">پن کامیابی کے ساتھ بن گیا</string>
     <string name="create_pin">پن بنائیں</string>
     <string name="set_primary_tunnel">بنیادی ٹنل کے طور پر سیٹ کریں</string>
-    <string name="junk_packet_count">جنک پیکٹ کی تعداد</string>
-    <string name="init_packet_junk_size">اِنِٹ پیکٹ جنک سائز</string>
-    <string name="init_packet_magic_header">اِنِٹ پیکٹ میجک ہیڈر</string>
-    <string name="transport_packet_magic_header">ٹرانسپورٹ پیکٹ میجک ہیڈر</string>
     <string name="see_the">دیکھیں</string>
     <string name="vpn_denied_dialog_title">اجازت نامنظور</string>
     <string name="vpn_settings">وی پی این سسٹم کی ترتیبات</string>
     <string name="always_on_message">وی پی این کنکشن کی اجازت مسترد کر دی گئی ہے۔ براہ کرم چیک کریں</string>
     <string name="root_accepted">روٹ شیل قبول کر لیا گیا</string>
-    <string name="show_amnezia_properties">ایمنیزیا خصوصیات دکھائیں</string>
     <string name="appearance">ظاہری شکل</string>
     <string name="notifications">اطلاعات</string>
     <string name="automatic">خودکار</string>
@@ -97,7 +92,6 @@
     <string name="quick_actions">فوری اقدامات</string>
     <string name="advanced_settings">اعلیٰ ترتیبات</string>
     <string name="debounce_delay">ڈی باؤنس تاخیر</string>
-    <string name="hide_amnezia_properties">ایمنیزیا خصوصیات چھپائیں</string>
     <string name="exclude_lan">لین خارج کریں</string>
     <string name="include_lan">لین شامل کریں</string>
     <string name="auto_tunnel">خودکار ٹنل</string>
@@ -111,18 +105,14 @@
     <string name="unknown_error">نامعلوم خرابی پیش آگئی</string>
     <string name="seconds">سیکنڈز</string>
     <string name="persistent_keepalive">مسلسل زندہ</string>
-    <string name="remove_amnezia_compatibility">ایمنیزیا مطابقت ہٹائیں</string>
     <string name="light">روشن</string>
     <string name="launch_app_settings">ایپ ترتیبات لانچ کریں</string>
     <string name="monitoring_state_changes">ریاستی تبدیلیوں کی نگرانی</string>
     <string name="enter_pin">پن درج کریں</string>
     <string name="getting_started_guide">شروع کرنے کی گائیڈ</string>
     <string name="handshake">ہینڈشیک</string>
-    <string name="response_packet_magic_header">رسپانس پیکٹ میجک ہیڈر</string>
     <string name="unsure_how">اگر آپ کو یقین نہیں کہ کیسے آگے بڑھیں</string>
     <string name="use_root_shell_for_wifi">وائی فائی کی معلومات حاصل کرنے کے لیے روٹ شیل کا استعمال کریں، مقام کی اجازت کی ضرورت کو روکتے ہوئے</string>
-    <string name="response_packet_junk_size">رسپانس پیکٹ جنک سائز</string>
-    <string name="junk_packet_minimum_size">جنک پیکٹ کا کم از کم سائز</string>
     <string name="edit_tunnel">ٹنل میں ترمیم کریں</string>
     <string name="enable_app_lock">ایپ لاک فعال کریں</string>
     <string name="logs">لاگز</string>
@@ -130,8 +120,6 @@
     <string name="restart_at_boot">بوٹ پر دوبارہ شروع کریں</string>
     <string name="support">سپورٹ</string>
     <string name="settings">ترتیبات</string>
-    <string name="junk_packet_maximum_size">جنک پیکٹ کا زیادہ سے زیادہ سائز</string>
-    <string name="enable_amnezia_compatibility">ایمنیزیا مطابقت فعال کریں</string>
     <string name="native_kill_switch">مقامی کِل سوئچ</string>
     <string name="auto_tunnel_channel_description">خودکار ٹنل اسٹیٹ کی اطلاعات کے لیے ایک چینل</string>
     <string name="use_wildcards">نام وائلڈ کارڈ استعمال کریں</string>
@@ -141,7 +129,6 @@
     <string name="bypass_lan_for_kill_switch">کِل سوئچ کے لیے لین کو بائی پاس کریں</string>
     <string name="stop">روکیں</string>
     <string name="never">کبھی نہیں</string>
-    <string name="underload_packet_magic_header">پیکٹ میجک ہیڈر کو انڈر لوڈ کریں</string>
     <string name="always_on_message2">یہ یقینی بنانے کے لیے کہ ہمیشہ آن وی پی این دیگر تمام ایپس کے لیے بند ہے اور دوبارہ کوشش کریں</string>
     <string name="ethernet_tunnel">ایتھرنیٹ ٹنل</string>
     <string name="auto_tunnel_channel_name">خودکار ٹنل نوٹیفکیشن چینل</string>
@@ -182,7 +169,6 @@
     <string name="nothing_here_yet">ابھی تک یہاں کچھ نہیں!</string>
     <string name="join_matrix">میٹرکس کمیونٹی میں شامل ہوں</string>
     <string name="delete_logs">لاگز حذف اور صاف کریں</string>
-    <string name="export_tunnels_amnezia">ٹنلز بطور ایمنیزیا برآمد کریں</string>
     <string name="select_all">سبھی کو منتخب کریں</string>
     <string name="check_for_update">تازہ کاری کے لیے جانچ کریں</string>
     <string name="update_check_failed">تازہ کاری کی جانچ ناکام ہو گئی۔</string>
@@ -203,7 +189,6 @@
     <string name="update_check_unsupported">اس قسم کی تعمیر کے لیے تازہ کاری معائنہ تعاون یافتہ نہیں ہے۔</string>
     <string name="flavor_template">ذائقہ: %1$s</string>
     <string name="show_qr">کیو آر دکھائیں</string>
-    <string name="amnezia">ایمنیزیا</string>
     <string name="wireguard">وائرگارڈ</string>
     <string name="done">ہوگیا</string>
     <string name="current_template">موجودہ: %1$s</string>
@@ -303,9 +288,6 @@
     <string name="password_no_spaces">پاس ورڈ میں خالی جگہیں نہیں ہوسکتی ہیں۔</string>
     <string name="tunnel_name_taken">ٹنل کا نام پہلے ہی استعمال ہو چکا ہے۔</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">کیو‌یو‌آئی‌سی کی نقل کریں</string>
-    <string name="mimic_dns">ڈی‌این‌ایس کی نقل کریں</string>
-    <string name="mimic_sip">ایس‌آئی‌پی کی نقل کریں</string>
     <string name="active_tunnel_update_failed">فعال ٹنل کی تازہ کاری ناکام ہو گئی</string>
     <string name="ddns_auto_update">متحرک ڈی‌این‌ایس خودکار تازہ کاری</string>
     <string name="ddns_auto_update_description">ڈی‌ڈی‌این‌ایس تبدیلیوں پر آئی‌پی کی خودکار تازہ کاری کرتا ہے</string>
@@ -424,6 +406,4 @@
     <string name="website_url" translatable="false">https://wgtunnel.com</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

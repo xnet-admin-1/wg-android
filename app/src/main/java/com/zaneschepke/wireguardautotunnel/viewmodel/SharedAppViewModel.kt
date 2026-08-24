@@ -47,7 +47,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.withContext
-import org.amnezia.awg.config.BadConfigException
+import com.wireguard.config.BadConfigException
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -246,7 +246,7 @@ class SharedAppViewModel(
                         async {
                             val config =
                                 try {
-                                    tunnel.toAmConfig()
+                                    tunnel.toWgConfig()
                                 } catch (e: Exception) {
                                     null
                                 }
@@ -364,7 +364,7 @@ class SharedAppViewModel(
 
     fun copySelectedTunnel() = intent {
         val selected = tunnelsUiState.value.selectedTunnels.firstOrNull() ?: return@intent
-        val copy = TunnelConfig.tunnelConfFromQuick(selected.amQuick, selected.name)
+        val copy = TunnelConfig.tunnelConfFromQuick(selected.wgQuick, selected.name)
         tunnelRepository.saveTunnelsUniquely(listOf(copy), state.tunnelNames.map { it.value })
         clearSelectedTunnels()
     }
@@ -372,18 +372,10 @@ class SharedAppViewModel(
     fun exportSelectedTunnels(configType: ConfigType, uri: Uri?) = intent {
         val selectedTunnels = tunnelsUiState.value.selectedTunnels
         val (files, shareFileName) =
-            when (configType) {
-                ConfigType.AM ->
-                    Pair(
-                        createAmFiles(selectedTunnels),
-                        "am-export_${Instant.now().epochSecond}.zip",
-                    )
-                ConfigType.WG ->
-                    Pair(
-                        createWgFiles(selectedTunnels),
-                        "wg-export_${Instant.now().epochSecond}.zip",
-                    )
-            }
+            Pair(
+                createWgFiles(selectedTunnels),
+                "wg-export_${Instant.now().epochSecond}.zip",
+            )
         val onFailure = { action: Throwable ->
             intent {
                 postSideEffect(
@@ -418,13 +410,6 @@ class SharedAppViewModel(
         tunnels.mapNotNull { config ->
             if (config.wgQuick.isNotBlank()) {
                 fileUtils.createFile(config.name, config.wgQuick)
-            } else null
-        }
-
-    suspend fun createAmFiles(tunnels: Collection<TunnelConfig>): List<File> =
-        tunnels.mapNotNull { config ->
-            if (config.amQuick.isNotBlank()) {
-                fileUtils.createFile(config.name, config.amQuick)
             } else null
         }
 }

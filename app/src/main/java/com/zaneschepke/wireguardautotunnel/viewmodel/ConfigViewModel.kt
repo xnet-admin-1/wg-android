@@ -11,8 +11,8 @@ import com.zaneschepke.wireguardautotunnel.ui.state.ConfigProxy
 import com.zaneschepke.wireguardautotunnel.ui.state.ConfigUiState
 import com.zaneschepke.wireguardautotunnel.util.StringValue
 import com.zaneschepke.wireguardautotunnel.util.extensions.asStringValue
+import com.wireguard.config.BadConfigException
 import kotlinx.coroutines.flow.combine
-import org.amnezia.awg.config.BadConfigException
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -50,17 +50,16 @@ class ConfigViewModel(
                 GlobalSideEffect.Toast(StringValue.StringResource(R.string.tunnel_name_taken))
             )
         runCatching {
-                val (wg, am) = configProxy.buildConfigs()
+                val wg = configProxy.buildWgConfig()
                 val tunnelConfig =
                     if (tunnelId == null) {
                         TunnelConfig.tunnelConfFromQuick(
-                            am.toAwgQuickString(true, false),
+                            wg.toWgQuickString(true),
                             tunnelName,
                         )
                     } else {
                         state.tunnel?.copy(
                             name = tunnelName,
-                            amQuick = am.toAwgQuickString(true, false),
                             wgQuick = wg.toWgQuickString(true),
                         )
                     }
@@ -82,7 +81,6 @@ class ConfigViewModel(
                 val message =
                     when (it) {
                         is BadConfigException -> it.asStringValue()
-                        is com.wireguard.config.BadConfigException -> it.asStringValue()
                         else -> StringValue.StringResource(R.string.unknown_error)
                     }
                 postSideEffect(GlobalSideEffect.Snackbar(message))

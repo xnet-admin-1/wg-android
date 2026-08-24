@@ -50,7 +50,6 @@
     <string name="getting_started_guide">取得入門指南</string>
     <string name="settings">設定</string>
     <string name="restart_at_boot">開機時啟動</string>
-    <string name="junk_packet_count">垃圾封包數</string>
     <string name="logs">日誌</string>
     <string name="dark">灰色</string>
     <string name="light">亮色</string>
@@ -75,10 +74,8 @@
     <string name="unknown_error">發生未知錯誤</string>
     <string name="endpoint">終端點</string>
     <string name="location_services_not_detected">未啟用定位服務</string>
-    <string name="junk_packet_maximum_size">垃圾封包最大值</string>
     <string name="no_tunnels">還沒有新增任何隧道！</string>
     <string name="allowed_ips">允許的 IP</string>
-    <string name="junk_packet_minimum_size">垃圾封包最小值</string>
     <string name="error_no_file_explorer">未安裝任何檔案管理器</string>
     <string name="unsure_how">如果您不確定如何進行</string>
     <string name="see_the">請參閱</string>
@@ -108,16 +105,11 @@
     <string name="dns_resolve_error">DNS 解析失敗</string>
     <string name="kernel_name_error">核心模組名稱錯誤</string>
     <string name="nothing_here_yet">這裡目前還沒有任何東西！</string>
-    <string name="remove_amnezia_compatibility">移除 Amnezia 相容性</string>
-    <string name="enable_amnezia_compatibility">啟用 Amnezia 相容性</string>
-    <string name="show_amnezia_properties">顯示 Amnezia 屬性</string>
-    <string name="hide_amnezia_properties">隱藏 Amnezia 屬性</string>
     <string name="active">使用中</string>
     <string name="vpn_denied_dialog_title">拒絕存取</string>
     <string name="always_on_message">VPN 連線被拒絕，請檢查</string>
     <string name="wildcards_active">啟用萬用字元</string>
     <string name="multiple">多個</string>
-    <string name="export_tunnels_amnezia">將隧道匯出為 Amnezia</string>
     <string name="export_tunnels_wireguard">將隧道匯出為 WireGuard</string>
     <string name="inactive">未使用</string>
     <string name="trusted_wifi_names">信任的 WiFi 名稱</string>
@@ -154,17 +146,13 @@
     <string name="update_check_unsupported">更新檢查不支援此建置類型。</string>
     <string name="darker">黑色</string>
     <string name="preshared_key">預分享金鑰</string>
-    <string name="transport_packet_magic_header">傳輸封包魔法標頭</string>
     <string name="tunnel_running">隧道運作中</string>
     <string name="hide_scripts">隱藏指令碼</string>
-    <string name="underload_packet_magic_header">負載封包魔法標頭</string>
     <string name="email_chooser">發送電子郵件…</string>
     <string name="handshake">上次交握時間</string>
     <string name="vpn_channel_description">VPN 狀態通知頻道</string>
     <string name="auto_tunnel_channel_name">自動隧道管理通知頻道</string>
     <string name="show_scripts">顯示指令碼</string>
-    <string name="init_packet_junk_size">初始封包垃圾大小</string>
-    <string name="response_packet_junk_size">回應封包垃圾大小</string>
     <string name="auto_tunnel_channel_description">自動隧道管理服務狀態通知頻道</string>
     <string name="prominent_background_location_message">此功能需要背景位置存取權以啟用即使應用程式關閉也會持續執行的 Wi-Fi SSID 自動掃描。如果想知道更多資訊，請參閱支援頁面的隱私政策。</string>
     <string name="tunnel_starting">隧道正在啟動</string>
@@ -172,15 +160,12 @@
     <string name="peer">端點</string>
     <string name="rotate_keys">輪換金鑰</string>
     <string name="add_peer">新增端點</string>
-    <string name="init_packet_magic_header">初始封包魔法標頭</string>
-    <string name="response_packet_magic_header">回應封包魔法標頭</string>
     <string name="always_on_message2">確保永久連線的 VPN 已經關閉並再試一次</string>
     <string name="enter_config_url">輸入組態 URL</string>
     <string name="error_download_failed">下載組態失敗</string>
     <string name="config_error">無效組態</string>
     <string name="remote_key_template">金鑰: %1$s</string>
     <string name="flavor_template">風格: %1$s</string>
-    <string name="amnezia">Amnezia</string>
     <string name="wireguard">WireGuard</string>
     <string name="done">完成</string>
     <string name="show_qr">顯示 QR code</string>
@@ -265,14 +250,12 @@
     <string name="http_bind_address">HTTP 綁定位址</string>
     <string name="tunnel_mapping_description">Map tunnels as preferred by Wi-Fi name</string>
     <string name="tunnel_name_taken">隧道名稱已經被使用。</string>
-    <string name="mimic_dns">模仿 DNS</string>
     <string name="unknown_attribute">未知屬性</string>
     <string name="donation_prompt_prefix">感謝使用 WG Tunnel！如果您可以，請考慮</string>
     <string name="hint_template">(%1$s)</string>
     <string name="socks_5_bind_address">SOCKS5 綁定位址</string>
     <string name="root_required_template">%1$s (需要 root)</string>
     <string name="website">官方網站</string>
-    <string name="mimic_quic">模仿 QUIC</string>
     <string name="wifi_settings">Wi-Fi 設定</string>
     <string name="invalid_value">無效值</string>
     <string name="info">資訊</string>
@@ -356,7 +339,6 @@
     <string name="auth_error">Unauthorized</string>
     <string name="kernel_name_special_characters">Tunnel name in kernel mode cannot have spaces or certain special characters (allowed: alphanumeric, _, =, +, ., -)</string>
     <string name="_continue">繼續</string>
-    <string name="mimic_sip">模仿 SIP</string>
     <string name="expiremental_template">%1$s (實驗性)</string>
     <string name="unavailable_in_mode">當前模式下不可用</string>
     <string name="server_port">伺服器:連接埠</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Transport packet junk size</string>
-    <string name="cookie_packet_junk_size">Cookie packet junk size</string>
 </resources>

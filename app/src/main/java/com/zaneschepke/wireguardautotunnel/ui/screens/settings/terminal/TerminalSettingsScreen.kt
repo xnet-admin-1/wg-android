@@ -36,6 +36,7 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit, viewModel: SettingsViewMo
     var statusLog by remember { mutableStateOf("") }
     var pairingCode by remember { mutableStateOf("") }
     var pairingPort by remember { mutableStateOf("") }
+    var connectPort by remember { mutableStateOf("") }
     var pairResult by remember { mutableStateOf("") }
 
     val settingsState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
@@ -91,13 +92,13 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit, viewModel: SettingsViewMo
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text("ADB Self-Pair", style = MaterialTheme.typography.titleMedium)
                     Text(
-                        "Pair with on-device ADB to enable persistent remote access. Open Wireless Debugging → Pair device, then enter the code and port below.",
+                        "Open Wireless Debugging settings. Enter the pairing port & code from \"Pair device\", and the connection port shown at the top (e.g. 34735).",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedTextField(
                             value = pairingPort, onValueChange = { pairingPort = it.filter { c -> c.isDigit() } },
-                            label = { Text("Port") }, modifier = Modifier.weight(1f),
+                            label = { Text("Pair Port") }, modifier = Modifier.weight(1f),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true,
                         )
                         OutlinedTextField(
@@ -106,15 +107,21 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit, viewModel: SettingsViewMo
                             singleLine = true,
                         )
                     }
+                    OutlinedTextField(
+                        value = connectPort, onValueChange = { connectPort = it.filter { c -> c.isDigit() } },
+                        label = { Text("Connection Port (from Wireless Debugging screen)") },
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true,
+                    )
                     Button(
                         onClick = {
                             isWorking = true; pairResult = "Pairing..."
                             scope.launch(Dispatchers.IO) {
-                                pairResult = pairAndPersist(ctx, pairingPort, pairingCode)
+                                pairResult = pairAndPersist(ctx, pairingPort, pairingCode, connectPort)
                                 isWorking = false
                             }
                         },
-                        enabled = !isWorking && pairingCode.isNotBlank() && pairingPort.isNotBlank(),
+                        enabled = !isWorking && pairingCode.isNotBlank() && pairingPort.isNotBlank() && connectPort.isNotBlank(),
                     ) { Text("Pair & Persist ADB") }
                     if (pairResult.isNotBlank()) {
                         Text(pairResult, style = MaterialTheme.typography.bodySmall,
@@ -144,25 +151,31 @@ fun TerminalSettingsScreen(onOpenTerminal: () -> Unit, viewModel: SettingsViewMo
     }
 }
 
-private fun pairAndPersist(ctx: android.content.Context, port: String, code: String): String {
-    // Step 1: Pair
+private fun pairAndPersist(ctx: android.content.Context, port: String, code: String, connectPort: String): String {
+    // Step 1: Pair with the wireless debugging pairing port
     val pairOut = ProotExecutor.exec(ctx, "adb pair 127.0.0.1:$port $code", timeoutMs = 30_000)
     if (!pairOut.contains("Successfully paired", ignoreCase = true)) {
         return "Pair failed: $pairOut"
     }
 
-    // Step 2: Connect to adbd
-    val connectOut = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:5555", timeoutMs = 15_000)
+    // Step 2: Connect to the wireless debugging connection port
+    val connectOut = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:$connectPort", timeoutMs = 15_000)
     if (!connectOut.contains("connected", ignoreCase = true)) {
-        return "Paired but connect failed: $connectOut"
+        return "Paired but connect to port $connectPort failed: $connectOut"
     }
 
     // Step 3: Switch adbd to persistent TCP mode on port 5555
     val tcpipOut = ProotExecutor.exec(ctx, "adb tcpip 5555", timeoutMs = 15_000)
+    if (!tcpipOut.contains("restarting in TCP mode", ignoreCase = true)) {
+        return "Paired + connected, but tcpip 5555 failed: $tcpipOut"
+    }
 
-    return if (tcpipOut.contains("restarting in TCP mode", ignoreCase = true)) {
-        "Success! ADB persisted on port 5555 (survives Wi-Fi disconnect)."
+    // Step 4: Wait for adbd to restart, then reconnect on 5555
+    Thread.sleep(2000)
+    val finalConnect = ProotExecutor.exec(ctx, "adb connect 127.0.0.1:5555", timeoutMs = 15_000)
+    return if (finalConnect.contains("connected", ignoreCase = true)) {
+        "Success! ADB persisted on port 5555."
     } else {
-        "Paired + connected, but tcpip failed: $tcpipOut"
+        "ADB restarted on 5555. Reconnect may take a moment: $finalConnect"
     }
 }

@@ -75,27 +75,17 @@
     <string name="app_name">WG Tunnel</string>
     <string name="vpn_channel_name">Canal de notificación VPN</string>
     <string name="prominent_background_location_message">La monitorización SSID Wi-Fi necesita de permiso de ubicación en segundo plano incluso si la app está cerrada. Mira el enlace a la Política de Privacidad en la pantalla de ayuda para más detalles.</string>
-    <string name="junk_packet_count">Recuento de paquetes «ruido»</string>
-    <string name="junk_packet_minimum_size">Tamaño mínimo de paquetes «ruido»</string>
     <string name="add_from_clipboard">Agregar desde el portapapeles</string>
-    <string name="show_amnezia_properties">Mostrar propiedades de Amnezia</string>
     <string name="never">Nunca</string>
-    <string name="transport_packet_magic_header">Encabezado del paquete de transporte</string>
     <string name="getting_started_guide">Guía de inicio</string>
     <string name="always_on_message">Se ha denegado el permiso de conexión VPN. Por favor, compruebe el</string>
     <string name="always_on_message2">para asegurarse de que la VPN siempre activa esté desactivada para todas las demás aplicaciones e inténtelo de nuevo</string>
-    <string name="response_packet_magic_header">Encabezado del paquete de respuesta</string>
-    <string name="junk_packet_maximum_size">Tamaño máximo de paquetes «ruido»</string>
-    <string name="init_packet_junk_size">Tamaño de «datos de ruido» añadidos al paquete de inicialización</string>
     <string name="unsure_how">Si no estás seguro de cómo proceder</string>
     <string name="see_the">Ver la</string>
     <string name="vpn_denied_dialog_title">Permiso denegado</string>
     <string name="vpn_settings">Configuraciones VPN del sistema</string>
-    <string name="response_packet_junk_size">Tamaño de «datos ruido» del paquete de respuesta</string>
-    <string name="init_packet_magic_header">Encabezado del paquete de inicialización</string>
     <string name="root_accepted">Shell root permitida</string>
     <string name="restart_at_boot">Iniciar al arrancar</string>
-    <string name="underload_packet_magic_header">Encabezado del paquete baja carga</string>
     <string name="handshake">Último intercambio</string>
     <string name="donate">Donar al proyecto</string>
     <string name="appearance">Apariencia</string>
@@ -108,7 +98,6 @@
     <string name="stop_auto">Detener túnel automático</string>
     <string name="local_logging">Registro de monitoreo local</string>
     <string name="exclude_lan">Excluir LAN</string>
-    <string name="enable_amnezia_compatibility">Activar compatibilidad con Amnezia</string>
     <string name="include_lan">Incluir LAN</string>
     <string name="hide_scripts">Ocultar scripts</string>
     <string name="advanced_settings">Configuración avanzada</string>
@@ -116,7 +105,6 @@
     <string name="vpn_channel_description">Canal para notificaciones de estado de VPN</string>
     <string name="auto_tunnel_channel_description">Canal para notificaciones de estado del túnel automático</string>
     <string name="debounce_delay">Retardo de rebote</string>
-    <string name="hide_amnezia_properties">Ocultar propiedades de Amnezia</string>
     <string name="skip">Saltar</string>
     <string name="automatic">Automático</string>
     <string name="notifications">Notificaciones</string>
@@ -146,7 +134,6 @@
     <string name="pre_down">Antes de la desactivación</string>
     <string name="post_down">Después de la desactivación</string>
     <string name="quick_actions">Acciones rápidas</string>
-    <string name="remove_amnezia_compatibility">Eliminar compatibilidad con Amnezia</string>
     <string name="tunnel_control">Control del túnel</string>
     <string name="auto_tunnel">Túnel automático</string>
     <string name="multiple">Múltiple</string>
@@ -163,7 +150,6 @@
     <string name="active">Activo</string>
     <string name="copy">Copiar</string>
     <string name="export_tunnels_wireguard">Exportar túneles como WireGuard</string>
-    <string name="export_tunnels_amnezia">Exportar túneles como Amnezia</string>
     <string name="add_tunnel">Añadir túnel</string>
     <string name="export_logs">Exportar registros almacenados</string>
     <string name="inactive">Inactivo</string>
@@ -201,7 +187,6 @@
     <string name="darker">Más oscuro</string>
     <string name="amoled">AMOLED</string>
     <string name="show_qr">Mostrar QR</string>
-    <string name="amnezia">Amnezia</string>
     <string name="wireguard">WireGuard</string>
     <string name="done">Hecho</string>
     <string name="nothing_here_yet">¡No hay nada aquí de momento!</string>
@@ -299,9 +284,6 @@
     <string name="password_no_spaces">La contraseña no puede contener espacios.</string>
     <string name="tunnel_name_taken">El nombre del túnel ya se está usando.</string>
     <string name="range_hint">(%1$d–%2$d)</string>
-    <string name="mimic_quic">Imitar QUIC</string>
-    <string name="mimic_dns">Imitar DNS</string>
-    <string name="mimic_sip">Imitar SIP</string>
     <string name="active_tunnel_update_failed">Error al actualizar el tunel activo</string>
     <string name="ddns_auto_update">Actualizar automáticamente mediante el DNS dinámico</string>
     <string name="ddns_auto_update_description">Actualiza la IP cuando hay cambios en el DDNS</string>
@@ -424,6 +406,4 @@
     <string name="matrix_url" translatable="false">https://matrix.to/#/#wg-tunnel-space:matrix.org</string>
     <string name="bitcoin_cash" translatable="false">Bitcoin Cash (BCH)</string>
     <string name="github_sponsors_url" translatable="false">https://github.com/sponsors/zaneschepke</string>
-    <string name="transport_packet_junk_size">Tamaño de los datos «ruido» del paquete de transporte</string>
-    <string name="cookie_packet_junk_size">Tamaño de los datos «ruido» del paquete de cookies</string>
 </resources>

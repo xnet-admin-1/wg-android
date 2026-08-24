@@ -22,7 +22,6 @@ fun ExportTunnelsBottomSheet(
 ) {
     val context = LocalContext.current
 
-    var exportConfigType by remember { mutableStateOf(ConfigType.WG) }
     var shouldExport by remember { mutableStateOf(false) }
 
     val selectedTunnelsExportLauncher =
@@ -30,21 +29,17 @@ fun ExportTunnelsBottomSheet(
             mimeType = FileUtils.ZIP_FILE_MIME_TYPE,
             onResult = { file ->
                 if (file != null) {
-                    onExport(exportConfigType, file)
+                    onExport(ConfigType.WG, file)
                 } else onDismiss()
             },
         )
 
     fun handleFileExport() {
         if (context.hasSAFSupport(FileUtils.ZIP_FILE_MIME_TYPE)) {
-            val fileName =
-                when (exportConfigType) {
-                    ConfigType.AM -> "am_export_${Instant.now().epochSecond}.zip"
-                    ConfigType.WG -> "wg_export_${Instant.now().epochSecond}.zip"
-                }
+            val fileName = "wg_export_${Instant.now().epochSecond}.zip"
             selectedTunnelsExportLauncher.launch(fileName)
         } else {
-            onExport(exportConfigType, null)
+            onExport(ConfigType.WG, null)
         }
     }
 
@@ -59,17 +54,8 @@ fun ExportTunnelsBottomSheet(
         listOf(
             SheetOption(
                 Icons.Outlined.FolderZip,
-                stringResource(R.string.export_tunnels_amnezia),
-                onClick = {
-                    exportConfigType = ConfigType.AM
-                    shouldExport = true
-                },
-            ),
-            SheetOption(
-                Icons.Outlined.FolderZip,
                 stringResource(R.string.export_tunnels_wireguard),
                 onClick = {
-                    exportConfigType = ConfigType.WG
                     shouldExport = true
                 },
             ),
